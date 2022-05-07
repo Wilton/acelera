@@ -1230,7 +1230,7 @@ CREATE TABLE p_acao (
 	termino_real date NULL,
 	responsavel_setor_id int4 NULL DEFAULT 0,
 	cancelada numeric(1) NOT NULL,
-	sequencia varchar(10) NOT NULL,  /////////////////////////////// ///pause 
+	sequencia varchar(10) NOT NULL,   ///pause
 	idresponsavel int4 NULL,
 	CONSTRAINT ckc_flacancelada_p_aca CHECK ((flacancelada = ANY (ARRAY[(1)::numeric, (2)::numeric]))),
 	CONSTRAINT pk_p_acao PRIMARY KEY (id_p_acao),
