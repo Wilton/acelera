@@ -1008,6 +1008,7 @@ CREATE TABLE acordoespecieinstrumento (
 );
 
 ///////////////////////////////////////////////////////////////////////////////////
+
 -- agenda definition
 
 -- Drop table
@@ -1019,7 +1020,7 @@ CREATE TABLE agenda (
 	descricao varchar(100) NOT NULL,
 	created_at date NULL,
 	agenda text NULL,
-	hragendada timestamp NULL,
+	hora_agendada timestamp NULL,
 	local varchar(30) NULL,
 	email numeric(1) NULL,
 	escritorio_id int4 NOT NULL,
@@ -1036,7 +1037,7 @@ CREATE TABLE agenda (
 -- DROP TABLE aquisicao;
 
 CREATE TABLE aquisicao (
-	ida int4 NOT NULL,
+	id int4 NOT NULL,
 	aquisicao varchar(100) NULL,
 	projeto_id int4 NOT NULL,
 	entrega_id int4 NOT NULL,
@@ -1205,7 +1206,7 @@ CREATE TABLE objetivo (
 	nome varchar(100) NOT NULL,
 	ativo bpchar(1) NULL DEFAULT 's'::bpchar,
 	descricao text NULL,
-	escritorio_codigo int4 NULL DEFAULT 0,
+	codigo_escritorio int4 NULL DEFAULT 0,
 	sequencia int4 NULL DEFAULT 0,
 	CONSTRAINT ckc_flaativo_objet CHECK (((flaativo IS NULL) OR (flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar])))),
 	CONSTRAINT pk_objetivo PRIMARY KEY (idobjetivo),
@@ -1231,7 +1232,7 @@ CREATE TABLE p_acao (
 	responsavel_setor_id int4 NULL DEFAULT 0,
 	cancelada numeric(1) NOT NULL,
 	sequencia varchar(10) NOT NULL,   ///pause
-	idresponsavel int4 NULL,
+	responsavel_id int4 NULL,
 	CONSTRAINT ckc_flacancelada_p_aca CHECK ((flacancelada = ANY (ARRAY[(1)::numeric, (2)::numeric]))),
 	CONSTRAINT pk_p_acao PRIMARY KEY (id_p_acao),
 	CONSTRAINT fk_acao_projetoprocesso FOREIGN KEY (idprojetoprocesso) REFERENCES projetoprocesso(idprojetoprocesso) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -1245,12 +1246,12 @@ CREATE TABLE p_acao (
 
 -- DROP TABLE partediagnostico;
 
-CREATE TABLE partediagnostico (
-	idpartediagnostico int4 NOT NULL,
-	iddiagnostico int4 NOT NULL,
+CREATE TABLE parte_diagnostico (
+	parte_diagnostico_id int4 NOT NULL,
+	diagnostico_id int4 NOT NULL,
 	qualificacao varchar(1) NULL DEFAULT '1'::character varying,
-	idpessoa int4 NOT NULL,
-	tppermissao varchar(1) NULL DEFAULT '1'::character varying,
+	pessoa_id int4 NOT NULL,
+#	tppermissao varchar(1) NULL DEFAULT '1'::character varying,
 	CONSTRAINT pk_partediagnostico PRIMARY KEY (idpartediagnostico),
 	CONSTRAINT fk_partediagnostico_diagnostico FOREIGN KEY (iddiagnostico) REFERENCES diagnostico(iddiagnostico) ON DELETE CASCADE
 );
@@ -1263,15 +1264,15 @@ CREATE TABLE partediagnostico (
 -- DROP TABLE pergunta;
 
 CREATE TABLE pergunta (
-	idpergunta int8 NOT NULL,
-	dspergunta varchar(300) NULL,
-	tipopergunta numeric(1) NOT NULL,
+	id int8 NOT NULL,
+	descricao varchar(300) NULL,
+	tipo numeric(1) NOT NULL,
 	ativa bool NOT NULL DEFAULT false,
-	idquestionario int8 NOT NULL,
+	questionario_id int8 NOT NULL,
 	posicao int4 NULL,
-	id_secao int8 NOT NULL,
-	tiporegistro numeric(1) NULL,
-	dstitulo varchar(200) NULL,
+	secao_id int8 NOT NULL,
+	tipo_registro numeric(1) NULL,
+#	dstitulo varchar(200) NULL,
 	CONSTRAINT pk_pergunta PRIMARY KEY (idpergunta),
 	CONSTRAINT fk_pergunta_secao FOREIGN KEY (id_secao) REFERENCES secao(id_secao) ON DELETE RESTRICT,
 	CONSTRAINT fk_questionario_pergunta FOREIGN KEY (idquestionario) REFERENCES questionario_diagnostico(idquestionariodiagnostico) ON DELETE CASCADE
@@ -1285,11 +1286,11 @@ CREATE TABLE pergunta (
 -- DROP TABLE perm_funcionalidade;
 
 CREATE TABLE perm_funcionalidade (
-	idpermissao int4 NOT NULL,
-	idfuncionalidade int4 NOT NULL,
+	permissao_id int4 NOT NULL,
+	funcionalidade_id int4 NOT NULL,
 	principal bpchar(1) NOT NULL,
 	publicada bpchar(1) NOT NULL,
-	dtpublicada date NOT NULL,
+	data_publicada date NOT NULL,
 	CONSTRAINT cc_principal CHECK ((principal = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT cc_publicada CHECK ((publicada = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_perm_funcionalidade PRIMARY KEY (idpermissao, idfuncionalidade),
@@ -1304,12 +1305,12 @@ CREATE TABLE perm_funcionalidade (
 
 -- DROP TABLE permissaodiagnostico;
 
-CREATE TABLE permissaodiagnostico (
-	idpartediagnostico int4 NOT NULL,
-	iddiagnostico int4 NOT NULL,
-	idrecurso int4 NOT NULL,
-	idpermissao int4 NOT NULL,
-	idpessoa int4 NOT NULL,
+CREATE TABLE permissao_diagnostico (
+	parte_diagnostico_id int4 NOT NULL,
+	diagnostico_id int4 NOT NULL,
+	recurso_id int4 NOT NULL,
+	permissao_id int4 NOT NULL,
+#	pessoa_id int4 NOT NULL,
 	"data" date NOT NULL,
 	ativo bpchar(1) NOT NULL DEFAULT 'S'::bpchar,
 	CONSTRAINT ckc_ativo_ CHECK (((ativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar])) AND ((ativo)::text = upper((ativo)::text)))),
@@ -1329,13 +1330,13 @@ CREATE TABLE permissaodiagnostico (
 -- DROP TABLE pesquisa;
 
 CREATE TABLE pesquisa (
-	idpesquisa int4 NOT NULL,
+	id int4 NOT NULL,
 	situacao numeric(1) NOT NULL,
-	datpublicacao timestamp NULL,
-	idpespublica int4 NULL,
-	idpesencerra int4 NULL,
-	idquestionario int4 NOT NULL,
-	dtencerramento timestamp NULL,
+	data_publicacao timestamp NULL,
+	publicacao_id int4 NULL,
+	encerramento_id int4 NULL,
+	questionario_id int4 NOT NULL,
+	data_encerramento timestamp NULL,
 	CONSTRAINT cc_situacao CHECK ((situacao = ANY (ARRAY[(1)::numeric, (2)::numeric]))),
 	CONSTRAINT pk_pesquisa PRIMARY KEY (idpesquisa),
 	CONSTRAINT fk_pesquisaquestionario_questionario FOREIGN KEY (idquestionario) REFERENCES questionario(idquestionario) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -1346,11 +1347,11 @@ CREATE TABLE pesquisa (
 
 -- Drop table
 
--- DROP TABLE pessoaagenda;
+-- DROP TABLE pessoa_agenda;
 
 CREATE TABLE pessoaagenda (
-	idagenda int4 NOT NULL,
-	idpessoa int4 NOT NULL,
+	agenda_id int4 NOT NULL,
+	pessoa_id int4 NOT NULL,
 	CONSTRAINT pk_pessoaagenda PRIMARY KEY (idagenda, idpessoa),
 	CONSTRAINT fk_pessoaagenda_agenda FOREIGN KEY (idagenda) REFERENCES agenda(idagenda) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
@@ -1363,61 +1364,61 @@ CREATE TABLE pessoaagenda (
 -- DROP TABLE projeto;
 
 CREATE TABLE projeto (
-	idprojeto int4 NOT NULL,
-	nomcodigo varchar(50) NULL,
-	nomsigla varchar(20) NULL,
-	nomprojeto varchar(100) NULL,
-	idsetor int4 NULL,
-	idgerenteprojeto int4 NOT NULL,
-	idgerenteadjunto int4 NULL,
-	desprojeto text NULL,
-	desobjetivo text NULL,
-	datinicio date NULL,
-	datfim date NULL,
-	numperiodicidadeatualizacao int4 NULL,
-	numcriteriofarol int4 NULL,
-	domtipoprojeto varchar(20) NULL,
-	flapublicado varchar(1) NULL,
-	flaaprovado varchar(1) NULL,
-	desresultadosobtidos text NULL,
-	despontosfortes text NULL,
-	despontosfracos text NULL,
-	dessugestoes text NULL,
-	idescritorio int4 NULL,
-	flaaltagestao varchar(1) NULL,
-	idobjetivo int4 NULL,
-	idacao int4 NULL,
-	flacopa varchar(1) NULL,
-	idnatureza int4 NULL,
-	vlrorcamentodisponivel int8 NULL DEFAULT 0::bigint,
-	desjustificativa text NULL,
-	iddemandante int4 NULL,
-	idpatrocinador int4 NULL,
-	datinicioplano date NULL,
-	datfimplano date NULL,
-	desescopo text NULL,
-	desnaoescopo text NULL,
-	despremissa text NULL,
-	desrestricao text NULL,
-	numseqprojeto int4 NULL,
-	numanoprojeto int4 NULL,
-	desconsideracaofinal text NULL,
-	datenviouemailatualizacao date NULL,
-	idprograma int4 NULL DEFAULT 0,
-	nomproponente varchar(100) NULL,
-	domstatusprojeto int4 NOT NULL,
+	id int4 NOT NULL,
+	codigo varchar(50) NULL,
+	sigla varchar(20) NULL,
+	nome varchar(100) NULL,
+	setor_id int4 NULL,
+	gerente_projeto_id int4 NOT NULL,
+	gerente_adjunto_id int4 NULL,
+	descricao text NULL,
+	objetivo text NULL,
+	data_inicio date NULL,
+	data_fim date NULL,
+	periodicidade_atualizacao int4 NULL,
+	criterio_farol int4 NULL,
+#	domtipoprojeto varchar(20) NULL,
+#	flapublicado varchar(1) NULL,
+#	flaaprovado varchar(1) NULL,
+	resultados_obtidos text NULL,
+	pontos_fortes text NULL,
+	pontos_fracos text NULL,
+	sugestoes text NULL,
+	escritorio_id int4 NULL,
+#	flaaltagestao varchar(1) NULL,
+	objetivo_id int4 NULL,
+	acao_id int4 NULL,
+#	flacopa varchar(1) NULL,
+	natureza_id int4 NULL,
+	valor_orcamento_disponivel int8 NULL DEFAULT 0::bigint,
+	justificativa text NULL,
+	demandante_id int4 NULL,
+	patrocinador_id int4 NULL,
+	data_inicio_plano date NULL,
+	data_fimplano date NULL,
+	escopo text NULL,
+	naoescopo text NULL,
+	premissa text NULL,
+	restricao text NULL,
+	sequencia_projeto int4 NULL,
+	ano_projeto int4 NULL,
+	consideracao_final text NULL,
+#	dataenviouemailatualizacao date NULL,
+	programa_id int4 NULL DEFAULT 0,
+	proponente varchar(100) NULL,
+	status_projeto int4 NOT NULL,
 	ano numeric(4) NULL,
-	idportfolio int4 NULL,
-	idtipoiniciativa int4 NOT NULL DEFAULT 1,
-	numpercentualconcluido numeric(5, 2) NULL DEFAULT 0,
-	numpercentualprevisto numeric(5, 2) NULL DEFAULT 0,
-	numprocessosei varchar(20) NULL,
+	portfolio_id int4 NULL,
+	tipo_iniciativa_id int4 NOT NULL DEFAULT 1,
+	percentual_concluido numeric(5, 2) NULL DEFAULT 0,
+	percentual_previsto numeric(5, 2) NULL DEFAULT 0,
+#	processosei varchar(20) NULL,
 	atraso varchar(20) NULL DEFAULT 0,
-	numpercentualconcluidomarco numeric(5, 2) NULL,
-	domcoratraso varchar(10) NULL,
-	qtdeatividadeiniciada numeric(5, 2) NULL DEFAULT 0,
-	numpercentualiniciado numeric(5, 2) NULL DEFAULT 0,
-	qtdeatividadenaoiniciada numeric(5, 2) NULL DEFAULT 0,
+	percentual_concluido_marco numeric(5, 2) NULL,
+#	domcoratraso varchar(10) NULL,
+	qtde_atividade_iniciada numeric(5, 2) NULL DEFAULT 0,
+	percentual_iniciado numeric(5, 2) NULL DEFAULT 0, 
+	qtndeatividadenaoiniciada numeric(5, 2) NULL DEFAULT 0,
 	numpercentualnaoiniciado numeric(5, 2) NULL DEFAULT 0,
 	qtdeatividadeconcluida numeric(5, 2) NULL DEFAULT 0,
 	numpercentualatividadeconcluido numeric(5, 2) NULL DEFAULT 0,
