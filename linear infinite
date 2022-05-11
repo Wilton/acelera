@@ -1,0 +1,104 @@
+[33mcommit 7e21769a070a0084fad2b69a8edfe20ece33e8ff[m[33m ([m[1;36mHEAD -> [m[1;32mtiago[m[33m, [m[1;31morigin/tiago[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: tiago felix <tiagofeli.rk@gmail.com>
+Date:   Tue May 10 00:57:22 2022 -0300
+
+    linha 1420
+
+[33mcommit 3a494650034cad304b8fed803ace18a897b879b4[m
+Merge: 6ef574b 299021c
+Author: Tiago <tiagofeli.rk@gmail.com>
+Date:   Sat May 7 14:13:22 2022 -0500
+
+    Merge branch 'tiago'
+
+[33mcommit 299021cb092f734a840f2a13c16ae080e0fcb2c3[m
+Author: Tiago <tiagofeli.rk@gmail.com>
+Date:   Sat May 7 14:12:58 2022 -0500
+
+    atualização
+
+[33mcommit d30eae81efba396af9177c0ffecf28e5165e43db[m
+Author: Tiago <tiagofeli.rk@gmail.com>
+Date:   Sat May 7 14:09:42 2022 -0500
+
+    atualização arquivo de tabela
+
+[33mcommit 6ef574b5ee05deb4613fdfe5f4dba21534be3cfa[m
+Author: mouralsm2 <lucassiqueira0212@gmail.com>
+Date:   Sat May 7 13:39:54 2022 -0300
+
+    teste
+
+[33mcommit 7f56c3ee856a6d72d2b71d3ebffe998e6f1e81a2[m[33m ([m[1;31morigin/lucas[m[33m)[m
+Merge: e528bb7 2a22541
+Author: Wilton Barbosa da Silva Júnior <wiltonbsjr@gmail.com>
+Date:   Tue May 3 18:37:12 2022 -0300
+
+    Merge branch 'master' of https://github.com/Wilton/acelera
+
+[33mcommit e528bb77648d333872109e5a3fa8cfd4556b4a46[m
+Author: Wilton Barbosa da Silva Júnior <wiltonbsjr@gmail.com>
+Date:   Tue May 3 18:35:28 2022 -0300
+
+    adicionando arquivo de criacao do banco de dados
+
+[33mcommit 2a22541006e245b5c6729c43e57af2fc5c7a2bf2[m
+Merge: 08338e3 e6fb064
+Author: Tiago <tiagofeli.rk@gmail.com>
+Date:   Mon May 2 19:16:42 2022 -0500
+
+    Merge branch 'tiago'
+    
+    teste
+
+[33mcommit e6fb064ce1fc1de7ccd386735827aac4b1bd28b9[m
+Author: Tiago <tiagofeli.rk@gmail.com>
+Date:   Mon May 2 19:16:25 2022 -0500
+
+    tete
+
+[33mcommit 08338e396e97ec89c628129f1ee2d404866997a2[m
+Merge: ddd5735 f578038
+Author: Tiago <tiagofeli.rk@gmail.com>
+Date:   Mon May 2 18:44:28 2022 -0500
+
+    Merge branch 'tiago'
+    
+    teste
+
+[33mcommit f57803848c546778841eba65951bec781e83c097[m
+Author: Tiago <tiagofeli.rk@gmail.com>
+Date:   Mon May 2 18:43:49 2022 -0500
+
+    teste
+
+[33mcommit ddd5735965c413b74ea0e0b5a2fe7b7561d2fc7e[m
+Merge: ba006f8 e170357
+Author: Tiago <tiagofeli.rk@gmail.com>
+Date:   Mon May 2 18:24:03 2022 -0500
+
+    Merge branch 'tiago'
+
+[33mcommit e17035794d5d26a3f780394fbf122fe39a010911[m
+Author: Tiago <tiagofeli.rk@gmail.com>
+Date:   Mon May 2 18:23:24 2022 -0500
+
+    teste
+
+[33mcommit ba006f8da43097410813f0118a3fb68c2e01dbba[m
+Author: Lucas Siqueira <lucassiqueira0212@gmail.com>
+Date:   Mon May 2 18:52:05 2022 -0300
+
+    meu primeiro commit
+
+[33mcommit 977867232a95e063612e13b3165f793eaf9f8615[m
+Author: Wilton Barbosa da Silva Júnior <wiltonbsjr@gmail.com>
+Date:   Mon May 2 18:11:18 2022 -0300
+
+    initial commit
+
+[33mcommit 1df8a70b8ddda455a790ea1e0fb4d4124403de8d[m
+Author: Wilton <wiltonbsjr@gmail.com>
+Date:   Mon May 2 17:31:57 2022 -0300
+
+    Initial commit
