@@ -1987,9 +1987,9 @@ CREATE TABLE comentario (
 	id int4 NOT NULL,
 	projeto_id int4 NOT NULL,
 	atividade_cronograma_id int4 NOT NULL,
-	dscomentario varchar(400) NOT NULL,
-	dtcomentario timestamptz NOT NULL,
-	idpessoa int4 NOT NULL,
+	comentario varchar(400) NOT NULL,
+	data_comentario timestamptz NOT NULL,
+	pessoa_id int4 NOT NULL,
 	CONSTRAINT pk_comentario PRIMARY KEY (idcomentario),
 	CONSTRAINT fk_comentario_atividadecronograma FOREIGN KEY (idatividadecronograma,idprojeto) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE CASCADE,
 	CONSTRAINT fk_comentario_pessoa FOREIGN KEY (idpessoa) REFERENCES pessoa(idpessoa) ON DELETE CASCADE,
@@ -2005,16 +2005,16 @@ CREATE INDEX fki_comentario_pessoa ON comentario USING btree (idpessoa);
 -- DROP TABLE comunicacao;
 
 CREATE TABLE comunicacao (
-	idcomunicacao int4 NOT NULL,
-	idprojeto int4 NOT NULL,
-	desinformacao varchar(255) NULL,
-	desinformado varchar(255) NULL,
-	desorigem varchar(255) NULL,
-	desfrequencia varchar(255) NULL,
-	destransmissao varchar(255) NULL,
-	desarmazenamento varchar(255) NULL,
-	nomresponsavel varchar(100) NULL,
-	idresponsavel int4 NULL,
+	id int4 NOT NULL,
+	projeto_id int4 NOT NULL,
+	informacao varchar(255) NULL,
+	informado varchar(255) NULL,
+	origem varchar(255) NULL,
+	frequencia varchar(255) NULL,
+	transmissao varchar(255) NULL,
+	armazenamento varchar(255) NULL,
+	responsavel varchar(100) NULL,
+	responsavel_id int4 NULL,
 	CONSTRAINT pk_comunicacao PRIMARY KEY (idcomunicacao),
 	CONSTRAINT fk_conunicacao_parteinteressada FOREIGN KEY (idresponsavel) REFERENCES parteinteressada(idparteinteressada) ON DELETE RESTRICT
 );
@@ -2026,20 +2026,20 @@ CREATE TABLE comunicacao (
 
 -- DROP TABLE questdiagnosticopadronizamelhoria;
 
-CREATE TABLE questdiagnosticopadronizamelhoria (
-	idpadronizacaomelhoria int8 NOT NULL,
-	idmelhoria int8 NULL,
-	desrevisada text NOT NULL,
-	idprazo int4 NOT NULL,
-	idimpacto int4 NOT NULL,
-	idesforco int4 NOT NULL,
-	numpontuacao numeric(5, 2) NULL,
-	numincidencia numeric(5, 2) NULL,
-	numvotacao int4 NULL,
-	flaagrupadora bool NULL,
-	destitulogrupo text NULL,
-	desinformacoescomplementares text NULL,
-	desmelhoriaagrupadora int8 NULL,
+CREATE TABLE questinario_diagnostico_padroniza_melhoria (
+	padronizacao_melhoria_id int8 NOT NULL,
+	melhoria_id int8 NULL,
+	revisada text NOT NULL,
+	prazo_id int4 NOT NULL,
+	impacto_id int4 NOT NULL,
+	esforco_id int4 NOT NULL,
+	pontuacao numeric(5, 2) NULL,
+	incidencia numeric(5, 2) NULL,
+	votacao int4 NULL,
+	flag_agrupadora bool NULL,
+	titulogrupo text NULL,
+	informacoes_complementares text NULL,
+	melhoria_agrupadora int8 NULL,
 	CONSTRAINT pk_questdiagnosticopadronizamelhoria PRIMARY KEY (idpadronizacaomelhoria),
 	CONSTRAINT fk_questionariodiagnosticomelhoria_questdiagnosticopadronizamel FOREIGN KEY (idmelhoria) REFERENCES questionariodiagnosticomelhoria(idmelhoria) ON DELETE CASCADE
 );
