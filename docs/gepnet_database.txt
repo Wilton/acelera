@@ -1833,10 +1833,10 @@ CREATE TABLE questionario_diagnostico_melhoria (
 	macro_processo_trabalho_id int4 NOT NULL,
 	macro_processo_melhorar_id int4 NOT NULL,
 	unidade_responsavel_proposta_id int4 NOT NULL,
-	flaabrangencia char NOT NULL,
-	idunidaderesponsavelimplantacao int4 NOT NULL,
-	idobjetivoinstitucional int4 NULL,
-	idacaoestrategica int4 NULL,
+	flag_abrangencia char NOT NULL,
+	unidade_responsave_limplantacao_id int4 NOT NULL,
+	objetivo_institucional_id int4 NULL,
+	acao_estrategica_id int4 NULL,
 	idareamelhoria int4 NULL,
 	idsituacao int4 NULL,
 	iddiagnostico int8 NULL,
@@ -1897,37 +1897,37 @@ CREATE TABLE resposta_questionariordiagnostico (
 
 -- Drop table
 
--- DROP TABLE atividadecronograma;
+-- DROP TABLE atividade_cronograma;
 
-CREATE TABLE atividadecronograma (
-	idatividadecronograma int8 NOT NULL,
-	idprojeto int4 NOT NULL,
-	idgrupo int8 NULL,
-	nomatividadecronograma varchar(255) NOT NULL,
-	domtipoatividade numeric(1) NOT NULL,
-	desobs text NULL,
-	idmarcoanterior int8 NULL,
-	numdias int4 NULL,
-	vlratividadebaseline int8 NULL DEFAULT 0::bigint,
-	vlratividade int8 NULL DEFAULT 0::bigint,
-	numfolga int4 NULL DEFAULT 0,
-	descriterioaceitacao text NULL,
-	idelementodespesa int4 NULL,
-	idparteinteressada int4 NULL,
-	datiniciobaseline date NULL,
-	datfimbaseline date NULL,
-	flaaquisicao bpchar(1) NULL,
-	flainformatica bpchar(1) NULL,
-	flacancelada bpchar(1) NULL,
-	datinicio date NULL,
-	datfim date NULL,
-	numpercentualconcluido numeric(5, 2) NULL,
-	numdiasbaseline int4 NULL,
-	numdiasrealizados int4 NULL DEFAULT 0,
-	numseq numeric(4) NOT NULL DEFAULT 1,
-	flaordenacao bpchar(1) NOT NULL DEFAULT 'S'::bpchar,
-	idresponsavel int4 NULL,
-	datatividadeconcluida date NULL,
+CREATE TABLE atividade_cronograma (
+	id int8 NOT NULL,
+	projeto_id int4 NOT NULL,
+	grup_id int8 NULL,
+	atividade_cronograma varchar(255) NOT NULL,
+	tipo_atividade numeric(1) NOT NULL,
+	observacao text NULL,
+	marco_anterior_id int8 NULL,
+	numerto_dias int4 NULL,
+	valor_atividade_baseline int8 NULL DEFAULT 0::bigint,
+	valor_atividade int8 NULL DEFAULT 0::bigint,
+	folga int4 NULL DEFAULT 0,
+	criterio_aceitacao text NULL,
+	elemento_despesa_id int4 NULL,
+	parte_interessada_id int4 NULL,
+	data_inicio_baseline date NULL,
+	data_fim_baseline date NULL,
+	flag_aquisicao bpchar(1) NULL,
+	flag_informatica bpchar(1) NULL,
+	flag_cancelada bpchar(1) NULL,
+	data_inicio date NULL,
+	data_fim date NULL,
+	percentual_concluido numeric(5, 2) NULL,
+	dias_baseline int4 NULL,
+	dias_realizados int4 NULL DEFAULT 0,
+	sequencia numeric(4) NOT NULL DEFAULT 1,
+	flag_ordenacao bpchar(1) NOT NULL DEFAULT 'S'::bpchar,
+	responsavel_id int4 NULL,
+	data_atividade_concluida date NULL,
 	CONSTRAINT ckc_domtipoatividade CHECK ((domtipoatividade = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric]))),
 	CONSTRAINT ckc_flaordenacao CHECK ((flaordenacao = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT ckc_flashowhide CHECK ((flaordenacao = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
@@ -1949,10 +1949,10 @@ CREATE INDEX idx_grupo ON atividadecronograma USING btree (idprojeto, idgrupo);
 
 -- DROP TABLE atividadecronopredecessora;
 
-CREATE TABLE atividadecronopredecessora (
-	idatividadecronograma int8 NOT NULL,
-	idprojetocronograma int4 NOT NULL,
-	idatividadepredecessora int8 NOT NULL,
+CREATE TABLE atividade_cronopredecessora (
+	atividade_cronograma_id int8 NOT NULL,
+	projeto_cronograma_id int4 NOT NULL,
+	atividade_predecessora_id int8 NOT NULL,
 	CONSTRAINT pk_atividadecronopredecessora PRIMARY KEY (idatividadecronograma, idprojetocronograma, idatividadepredecessora),
 	CONSTRAINT fk_cronpredecessora_cronograma FOREIGN KEY (idatividadecronograma,idprojetocronograma) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE CASCADE,
 	CONSTRAINT fk_cronpredecessora_predecessora FOREIGN KEY (idatividadepredecessora,idprojetocronograma) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE CASCADE
@@ -1965,11 +1965,11 @@ CREATE TABLE atividadecronopredecessora (
 
 -- DROP TABLE atividadeocultar;
 
-CREATE TABLE atividadeocultar (
-	idprojeto int4 NOT NULL,
-	idatividadecronograma int8 NOT NULL,
-	idpessoa int4 NOT NULL,
-	dtcadastro date NULL DEFAULT 'now'::text::date,
+CREATE TABLE atividade_ocultar (
+	projeto_id int4 NOT NULL,
+	atividade_cronograma_id int8 NOT NULL,
+	pessoa_id int4 NOT NULL,
+	data_cadastro date NULL DEFAULT 'now'::text::date,
 	CONSTRAINT pk_atividade_projeto_pessoa PRIMARY KEY (idatividadecronograma, idprojeto, idpessoa),
 	CONSTRAINT fk_atividade_projeto_visibilidade FOREIGN KEY (idprojeto,idatividadecronograma) REFERENCES <?>() ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_pessoa_ocultar FOREIGN KEY (idpessoa) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -1984,9 +1984,9 @@ CREATE INDEX idx_atividade_projeto_pessoa ON atividadeocultar USING btree (idati
 -- DROP TABLE comentario;
 
 CREATE TABLE comentario (
-	idcomentario int4 NOT NULL,
-	idprojeto int4 NOT NULL,
-	idatividadecronograma int4 NOT NULL,
+	id int4 NOT NULL,
+	projeto_id int4 NOT NULL,
+	atividade_cronograma_id int4 NOT NULL,
 	dscomentario varchar(400) NOT NULL,
 	dtcomentario timestamptz NOT NULL,
 	idpessoa int4 NOT NULL,
