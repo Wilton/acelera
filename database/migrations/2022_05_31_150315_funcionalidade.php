@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('feriado', function (Blueprint $table) {
+        Schema::create('funcionalidade', function (Blueprint $table) {
             $table->id();
-            $table->string('descricao', 200);
-            $table->date('data')->unique();
-            $table->string('ativo', 1);
-            $table->timestamps();
+            $table->string('nome', 200);
+            $table->string('descricao')->unique();
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('feriado');
+        Schema::dropIfExists('funcionalidade');
     }
 };
