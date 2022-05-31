@@ -942,7 +942,7 @@ CREATE TABLE secao (
 	descricao varchar(200) NULL,
 	ativa bool NOT NULL DEFAULT true,
 	tipo_questionario bpchar(1) NOT NULL,
-	macroprocesso bool NOT NULL DEFAULT false,
+	macro_processo bool NOT NULL DEFAULT false,
 	CONSTRAINT pk_secao PRIMARY KEY (id_secao),
 	CONSTRAINT fk_secao_secaopai FOREIGN KEY (id_secao_pai) REFERENCES secao(id_secao) ON DELETE CASCADE
 );
@@ -954,10 +954,10 @@ CREATE TABLE secao (
 
 -- DROP TABLE tipoacordo;
 
-CREATE TABLE tipoacordo (
-	idtipoacordo int4 NOT NULL,
-	dsacordo varchar NULL,
-	dtcadastro date NULL,
+CREATE TABLE tipo_acordo (
+	id int4 NOT NULL,
+	descricao varchar NULL,
+	created_at date NULL,
 	CONSTRAINT pk_tipoacordo PRIMARY KEY (idtipoacordo),
 );
 
@@ -1251,7 +1251,7 @@ CREATE TABLE p_acao (
 -- DROP TABLE partediagnostico;
 
 CREATE TABLE parte_diagnostico (
-	parte_diagnostico_id int4 NOT NULL,
+	id int4 NOT NULL,
 	diagnostico_id int4 NOT NULL,
 	qualificacao varchar(1) NULL DEFAULT '1'::character varying,
 	pessoa_id int4 NOT NULL,
@@ -1289,7 +1289,8 @@ CREATE TABLE pergunta (
 
 -- DROP TABLE perm_funcionalidade;
 
-CREATE TABLE perm_funcionalidade (
+CREATE TABLE permissao_funcionalidade (
+	id,
 	permissao_id int4 NOT NULL,
 	funcionalidade_id int4 NOT NULL,
 	principal bpchar(1) NOT NULL,
@@ -1476,6 +1477,7 @@ CREATE TABLE questionario_pesquisa (
 -- DROP TABLE questionariofrase_pesquisa;
 
 CREATE TABLE questionario_frase_pesquisa (
+	id,
 	questionario_pesquisa_id int4 NOT NULL,
 	frase_pesquisa_id int4 NOT NULL,
 	ordem int4 NOT NULL,
@@ -1512,7 +1514,7 @@ CREATE TABLE resultado_pesquisa (
 
 -- DROP TABLE statusreport;
 
-CREATE TABLE statusreport (
+CREATE TABLE status_report (
 	id int4 NOT NULL,
 	projeto_id int4 NOT NULL,
 	data_acompanhamento date NULL,
@@ -1579,6 +1581,7 @@ CREATE TABLE unidade_vinculada (
 -- DROP TABLE vincula_questionario;
 
 CREATE TABLE vincula_questionario (
+	id,
 	questionario_id int8 NOT NULL,
 	diagnostico_id int8 NOT NULL,
 	disponivel bpchar(1) NOT NULL DEFAULT 2,
@@ -1728,6 +1731,7 @@ CREATE TABLE linha_tempo (
 -- DROP TABLE opcao_resposta;
 
 CREATE TABLE opcao_resposta (
+	id,
 	resposta_id int8 NOT NULL,
 	pergunta_id int8 NOT NULL,
 	resposta varchar(300) NULL,
@@ -1771,6 +1775,7 @@ CREATE TABLE parte_interessada (
 -- DROP TABLE parteinteressada_funcoes;
 
 CREATE TABLE parte_interessada_funcoes (
+	id,
 	parte_interessada_id int4 NOT NULL,
 	parte_interessada_funcao_id int4 NOT NULL,
 	CONSTRAINT pk_parteinteressada_funcoes PRIMARY KEY (idparteinteressada, idparteinteressadafuncao),
@@ -1786,6 +1791,7 @@ CREATE TABLE parte_interessada_funcoes (
 -- DROP TABLE permissaoprojeto;
 
 CREATE TABLE permissao_projeto (
+	id,
 	parte_interessada_id int4 NOT NULL,
 	projeto_id int4 NOT NULL,
 	recurso_id int4 NOT NULL,
