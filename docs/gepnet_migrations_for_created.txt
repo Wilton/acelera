@@ -102,20 +102,6 @@ CREATE TABLE evento (
 );
 
 
--- funcionalidade definition
-
--- Drop table
-
--- DROP TABLE funcionalidade;
-
-CREATE TABLE funcionalidade (
-	id int4 NOT NULL,
-	nome varchar(80) NOT NULL,
-	descricao varchar(255) NOT NULL,
-	CONSTRAINT pk_funcionalidade PRIMARY KEY (idfuncionalidade)
-);
-
-
 -- licao definition
 
 -- Drop table
