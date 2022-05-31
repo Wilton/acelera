@@ -788,17 +788,17 @@ CREATE TABLE processo (
 
 -- DROP TABLE projetoprocesso;
 
-CREATE TABLE projetoprocesso (
-	idprojetoprocesso int4 NOT NULL,
-	idprocesso int4 NOT NULL,
-	numano numeric(4) NULL,
-	domsituacao numeric(1) NULL,
-	datsituacao date NULL,
-	idresponsavel int4 NULL,
-	desprojetoprocesso text NULL,
-	datinicioprevisto date NULL,
-	datterminoprevisto date NULL,
-	vlrorcamento int8 NOT NULL,
+CREATE TABLE projeto_processo (
+	id int4 NOT NULL,
+	processo_id int4 NOT NULL,
+	ano numeric(4) NULL,
+	situacao numeric(1) NULL,
+	data_situacao date NULL,
+	responsavel_id int4 NULL,
+	descricao text NULL,
+	data_inicio_previsto date NULL,
+	data_termino_previsto date NULL,
+	valor_orcamento int8 NOT NULL,
 	CONSTRAINT ckc_domsituacao CHECK (((domsituacao IS NULL) OR (domsituacao = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric])))),
 	CONSTRAINT pk_projetoprocesso PRIMARY KEY (idprojetoprocesso),
 	CONSTRAINT fk_projetoprocesso_processo FOREIGN KEY (idprocesso) REFERENCES processo(idprocesso) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -812,11 +812,11 @@ CREATE TABLE projetoprocesso (
 -- DROP TABLE questionario;
 
 CREATE TABLE questionario (
-	idquestionario int4 NOT NULL,
-	nomquestionario varchar(255) NULL,
-	desobservacao text NULL,
-	tipoquestionario numeric(1) NULL,
-	idescritorio int4 NOT NULL,
+	id int4 NOT NULL,
+	nome varchar(255) NULL,
+	observacao text NULL,
+	tipo numeric(1) NULL,
+	escritorio_id int4 NOT NULL,
 	disponivel numeric(1) NULL DEFAULT 0,
 	CONSTRAINT cc_disponivel CHECK (((disponivel IS NULL) OR (disponivel = ANY (ARRAY[(0)::numeric, (1)::numeric])))),
 	CONSTRAINT ckc_tipoquestionario_quest CHECK (((tipoquestionario IS NULL) OR (tipoquestionario = ANY (ARRAY[(1)::numeric, (2)::numeric])))),
@@ -832,12 +832,11 @@ CREATE TABLE questionario (
 -- DROP TABLE questionario_diagnostico;
 
 CREATE TABLE questionario_diagnostico (
-	idquestionariodiagnostico int8 NOT NULL DEFAULT nextval('sq_questionariodiagnostico'::regclass),
-	nomquestionario varchar(400) NOT NULL,
+	id int8 NOT NULL DEFAULT nextval('sq_questionariodiagnostico'::regclass),
+	nome varchar(400) NOT NULL,
 	tipo bpchar(1) NOT NULL DEFAULT 1,
 	observacao text NULL,
-	idpescadastrador int4 NOT NULL,
-	dtcadastro date NOT NULL,
+	created_at date NOT NULL,
 	CONSTRAINT pk_questionario_diagnostico PRIMARY KEY (idquestionariodiagnostico),
 	CONSTRAINT fk_pessoa_questionariodiagnostico FOREIGN KEY (idpescadastrador) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT
 );
@@ -851,9 +850,10 @@ CREATE INDEX fki_pessoa_questionariodiagnostico ON questionario_diagnostico USIN
 -- DROP TABLE questionariofrase;
 
 CREATE TABLE questionariofrase (
-	idfrase int4 NOT NULL,
-	idquestionario int4 NOT NULL,
-	numordempergunta int4 NOT NULL,
+	id,
+	frase_id int4 NOT NULL,
+	questionario_id int4 NOT NULL,
+	num_ordem_pergunta int4 NOT NULL,
 	obrigatoriedade bpchar(1) NOT NULL,
 	CONSTRAINT cc_obrigatoriedade CHECK (((obrigatoriedade IS NULL) OR (obrigatoriedade = ANY (ARRAY['S'::bpchar, 'N'::bpchar])))),
 	CONSTRAINT pk_questionariofrase PRIMARY KEY (idfrase, idquestionario),
@@ -869,8 +869,9 @@ CREATE TABLE questionariofrase (
 -- DROP TABLE respostafrase;
 
 CREATE TABLE respostafrase (
-	idfrase int4 NOT NULL,
-	idresposta int4 NOT NULL,
+	id,
+	frase_id int4 NOT NULL,
+	resposta_id int4 NOT NULL,
 	CONSTRAINT fk_frase_pergunta FOREIGN KEY (idfrase) REFERENCES frase(idfrase) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_pergunta_frase FOREIGN KEY (idresposta) REFERENCES resposta(idresposta) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
@@ -883,8 +884,9 @@ CREATE TABLE respostafrase (
 -- DROP TABLE respostafrase_pesquisa;
 
 CREATE TABLE respostafrase_pesquisa (
-	idfrasepesquisa int4 NOT NULL,
-	idrespostapesquisa int4 NOT NULL,
+	id
+	frase_pesquisa_id int4 NOT NULL,
+	resposta_pesquisa_id int4 NOT NULL,
 	CONSTRAINT pk_respostafrase_pesquisa PRIMARY KEY (idfrasepesquisa, idrespostapesquisa),
 	CONSTRAINT fk_fraseresultadopesquisa_frase FOREIGN KEY (idfrasepesquisa) REFERENCES frase_pesquisa(idfrasepesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_fraseresultadopesquisa_resultado FOREIGN KEY (idrespostapesquisa) REFERENCES resposta_pesquisa(idrespostapesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -898,24 +900,24 @@ CREATE TABLE respostafrase_pesquisa (
 -- DROP TABLE risco;
 
 CREATE TABLE risco (
-	idrisco int4 NOT NULL,
-	idprojeto int4 NOT NULL,
-	idorigemrisco int4 NULL,
-	idetapa int4 NULL,
-	idtiporisco int4 NULL,
-	datdeteccao date NULL,
-	desrisco text NULL,
-	domcorprobabilidade numeric(1) NULL,
-	domcorimpacto numeric(1) NULL,
-	domcorrisco numeric(1) NULL,
-	descausa text NULL,
-	desconsequencia text NULL,
-	flariscoativo numeric(1) NULL,
-	datencerramentorisco date NULL,
-	domtratamento numeric(2) NULL,
-	norisco varchar(50) NULL,
-	flaaprovado numeric(1) NULL,
-	datinatividade date NULL,
+	id int4 NOT NULL,
+	projeto_id int4 NOT NULL,
+	origem_risco_id int4 NULL,
+	etapa_id int4 NULL,
+	tipo_risco_id int4 NULL,
+	data_deteccao date NULL,
+	descricao text NULL,
+	cor_probabilidade numeric(1) NULL,
+	cor_impacto numeric(1) NULL,
+	cor_risco numeric(1) NULL,
+	causa text NULL,
+	consequencia text NULL,
+	ativo numeric(1) NULL,
+	data_encerramento date NULL,
+	tratamento numeric(2) NULL,
+	nome varchar(50) NULL,
+	aprovado numeric(1) NULL,
+	data_inatividade date NULL,
 	CONSTRAINT cc_domcorimpacto CHECK (((domcorimpacto IS NULL) OR (domcorimpacto = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric])))),
 	CONSTRAINT cc_domcorprobabilida CHECK (((domcorprobabilidade IS NULL) OR (domcorprobabilidade = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric])))),
 	CONSTRAINT cc_domcorrisco CHECK (((domcorrisco IS NULL) OR (domcorrisco = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric])))),
@@ -936,11 +938,10 @@ CREATE TABLE risco (
 -- DROP TABLE secao;
 
 CREATE TABLE secao (
-	id_secao int8 NOT NULL,
-	ds_secao varchar(200) NULL,
-	id_secao_pai int8 NULL,
+	id int8 NOT NULL,
+	descricao varchar(200) NULL,
 	ativa bool NOT NULL DEFAULT true,
-	tp_questionario bpchar(1) NOT NULL,
+	tipo_questionario bpchar(1) NOT NULL,
 	macroprocesso bool NOT NULL DEFAULT false,
 	CONSTRAINT pk_secao PRIMARY KEY (id_secao),
 	CONSTRAINT fk_secao_secaopai FOREIGN KEY (id_secao_pai) REFERENCES secao(id_secao) ON DELETE CASCADE
@@ -968,10 +969,10 @@ CREATE TABLE tipoacordo (
 -- DROP TABLE tratamento;
 
 CREATE TABLE tratamento (
-	idtratamento int4 NOT NULL,
-	dstratamento varchar(40) NOT NULL,
-	dtcadastro date NOT NULL,
-	idtiporisco int4 NULL,
+	id int4 NOT NULL,
+	descricao varchar(40) NOT NULL,
+	created_at date NOT NULL,
+	tipo_risco_id int4 NULL,
 	CONSTRAINT pk_tratamento PRIMARY KEY (idtratamento),
 );
 
@@ -983,13 +984,13 @@ CREATE TABLE tratamento (
 -- DROP TABLE acao;
 
 CREATE TABLE acao (
-	idacao int4 NOT NULL,
-	idobjetivo int4 NOT NULL,
-	nomacao varchar(100) NOT NULL,
-	flaativo bpchar(1) NULL DEFAULT 's'::bpchar,
-	desacao text NULL,
-	idescritorio int4 NULL DEFAULT 0,
-	numseq int4 NULL DEFAULT 0,
+	id int4 NOT NULL,
+	obejtivo_id int4 NOT NULL,
+	nome varchar(100) NOT NULL,
+	ativo bpchar(1) NULL DEFAULT 's'::bpchar,
+	descricao text NULL,
+	escritorio_id int4 NULL DEFAULT 0,
+	seq int4 NULL DEFAULT 0,
 	CONSTRAINT pk_acao PRIMARY KEY (idacao),
 	CONSTRAINT fk_acao_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT,
 );
@@ -1001,9 +1002,9 @@ CREATE TABLE acao (
 
 -- DROP TABLE acordoespecieinstrumento;
 
-CREATE TABLE acordoespecieinstrumento (
-	idacordoespecieinstrumento int4 NOT NULL,
-	nomacordoespecieinstrumento varchar(200) NOT NULL,
+CREATE TABLE acordo_especie_instrumento (
+	id int4 NOT NULL,
+	nome varchar(200) NOT NULL,
 	flaativo bpchar(1) NOT NULL,
 	CONSTRAINT ckc_flaativo_acord CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_acordoespecieinstrumento PRIMARY KEY (idacordoespecieinstrumento),
@@ -1096,7 +1097,7 @@ CREATE TABLE contramedida (
 	contramedida_efetiva numeric(1) NULL,
 	responsavel_descricao varchar(100) NULL,
 	contramedida_tipo_id int4 NOT NULL,
-#   nocontramedida varchar(100) NULL,
+    nome varchar(100) NULL,
 	CONSTRAINT cc_domstatuscontramedida CHECK (((domstatuscontramedida IS NULL) OR (domstatuscontramedida = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric, (5)::numeric, (6)::numeric])))),
 	CONSTRAINT cc_flacontramedidaefetiva CHECK (((flacontramedidaefetiva IS NULL) OR (flacontramedidaefetiva = ANY (ARRAY[(1)::numeric, (2)::numeric])))),
 	CONSTRAINT pk_contramedida PRIMARY KEY (idcontramedida),
@@ -1309,6 +1310,7 @@ CREATE TABLE perm_funcionalidade (
 -- DROP TABLE permissaodiagnostico;
 
 CREATE TABLE permissao_diagnostico (
+	id,
 	parte_diagnostico_id int4 NOT NULL,
 	diagnostico_id int4 NOT NULL,
 	recurso_id int4 NOT NULL,
@@ -1380,18 +1382,18 @@ CREATE TABLE projeto (
 	data_fim date NULL,
 	periodicidade_atualizacao int4 NULL,
 	criterio_farol int4 NULL,
-#	domtipoprojeto varchar(20) NULL,
-#	flapublicado varchar(1) NULL,
-#	flaaprovado varchar(1) NULL,
+	tipo_projeto varchar(20) NULL,
+	publicado varchar(1) NULL,
+	aprovado varchar(1) NULL,
 	resultados_obtidos text NULL,
 	pontos_fortes text NULL,
 	pontos_fracos text NULL,
 	sugestoes text NULL,
 	escritorio_id int4 NULL,
-#	flaaltagestao varchar(1) NULL,
+	alta_gestao varchar(1) NULL,
 	objetivo_id int4 NULL,
 	acao_id int4 NULL,
-#	flacopa varchar(1) NULL,
+	copa varchar(1) NULL,
 	natureza_id int4 NULL,
 	valor_orcamento_disponivel int8 NULL DEFAULT 0::bigint,
 	justificativa text NULL,
@@ -1400,13 +1402,12 @@ CREATE TABLE projeto (
 	data_inicio_plano date NULL,
 	data_fimplano date NULL,
 	escopo text NULL,
-	naoescopo text NULL,
+	nao_escopo text NULL,
 	premissa text NULL,
 	restricao text NULL,
 	sequencia_projeto int4 NULL,
 	ano_projeto int4 NULL,
 	consideracao_final text NULL,
-#	dataenviouemailatualizacao date NULL,
 	programa_id int4 NULL DEFAULT 0,
 	proponente varchar(100) NULL,
 	status_projeto int4 NOT NULL,
@@ -1415,16 +1416,16 @@ CREATE TABLE projeto (
 	tipo_iniciativa_id int4 NOT NULL DEFAULT 1,
 	percentual_concluido numeric(5, 2) NULL DEFAULT 0,
 	percentual_previsto numeric(5, 2) NULL DEFAULT 0,
-#	processosei varchar(20) NULL,
+	processo_sei varchar(20) NULL,
 	atraso varchar(20) NULL DEFAULT 0,
 	percentual_concluido_marco numeric(5, 2) NULL,
-#	domcoratraso varchar(10) NULL,
+	cor_atraso varchar(10) NULL,
 	qtde_atividade_iniciada numeric(5, 2) NULL DEFAULT 0,
 	percentual_iniciado numeric(5, 2) NULL DEFAULT 0, 
-	qtndeatividadenaoiniciada numeric(5, 2) NULL DEFAULT 0,
-	numpercentualnaoiniciado numeric(5, 2) NULL DEFAULT 0,
-	qtdeatividadeconcluida numeric(5, 2) NULL DEFAULT 0,
-	numpercentualatividadeconcluido numeric(5, 2) NULL DEFAULT 0,
+	qtnde_atividade_nao_iniciada numeric(5, 2) NULL DEFAULT 0,
+	percentualnao_iniciado numeric(5, 2) NULL DEFAULT 0,
+	qtde_atividade_concluida numeric(5, 2) NULL DEFAULT 0,
+	num_percentual_atividade_concluido numeric(5, 2) NULL DEFAULT 0,
 	CONSTRAINT ckc_flaaltagestao CHECK (((flaaltagestao IS NULL) OR ((flaaltagestao)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT ckc_flaaprovado CHECK (((flaaprovado IS NULL) OR ((flaaprovado)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT ckc_flacopa CHECK (((flacopa IS NULL) OR ((flacopa)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
