@@ -4,11 +4,11 @@
 
 -- DROP TABLE aceite;
 
-CREATE TABLE aceite (
+CREATE TABLE aceite ( -- ///////////////////////// no foreign key ///////////////////////// -- 
 	id int4 NOT NULL,
 	descricao text NULL,
 	parecer text NULL,
-	CONSTRAINT pk_aceite PRIMARY KEY (idaceite)
+	CONSTRAINT pk_aceite PRIMARY KEY (id)
 );
 
 
@@ -18,10 +18,10 @@ CREATE TABLE aceite (
 
 -- DROP TABLE acordoentidadeexterna;
 
-CREATE TABLE acordoentidadeexterna (
+CREATE TABLE acordoentidadeexterna ( -- ///////////////////////// no foreign key ///////////////////////// -- 
 	id int4 NOT NULL,
 	entidade_externa_id int4 NOT NULL,
-	CONSTRAINT pk_acordoentidadeexterna PRIMARY KEY (idacordo, identidadeexterna)
+	CONSTRAINT pk_acordoentidadeexterna PRIMARY KEY (id, entidade_externa_id)
 );
 
 
@@ -31,7 +31,7 @@ CREATE TABLE acordoentidadeexterna (
 
 -- DROP TABLE ata;
 
-CREATE TABLE ata (
+CREATE TABLE ata ( -- ///////////////////////// no foreign key ///////////////////////// -- 
 	id int4 NOT NULL,
 	projeto_id int4 NOT NULL,
 	assunto varchar(100) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE ata (
 	ponto_atencao text NOT NULL,
 	proximo_passo text NOT NULL,
 	hora_reuniao varchar(8) NOT NULL,
-	CONSTRAINT pk_ata PRIMARY KEY (idata)
+	CONSTRAINT pk_ata PRIMARY KEY (id)
 );
 
 
@@ -54,7 +54,7 @@ CREATE TABLE ata (
 
 -- DROP TABLE bloqueioprojeto;
 
-CREATE TABLE bloqueio_projeto (
+CREATE TABLE bloqueio_projeto ( -- ///////////////////////// no foreign key ///////////////////////// -- 
 	id int4 NOT NULL,
 	pessoa_id int4 NULL,
 	data_bloqueio date NOT NULL,
@@ -220,10 +220,10 @@ CREATE TABLE origem_risco (
 
 -- DROP TABLE parteinteressadafuncao;
 
-CREATE TABLE parteinteressadafuncao (
-	idparteinteressadafuncao serial4 NOT NULL,
-	nomfuncao varchar(100) NOT NULL,
-	numordem int4 NOT NULL DEFAULT 0,
+CREATE TABLE parte_interessada_funcao (
+	id serial4 NOT NULL,
+	nome varchar(100) NOT NULL,
+	ordem int4 NOT NULL DEFAULT 0,
 	CONSTRAINT "PK_parteinteressadafuncao" PRIMARY KEY (idparteinteressadafuncao)
 );
 
@@ -235,9 +235,9 @@ CREATE TABLE parteinteressadafuncao (
 -- DROP TABLE perfil;
 
 CREATE TABLE perfil (
-	idperfil int4 NOT NULL,
-	nomperfil varchar(50) NOT NULL,
-	flaativo bpchar(1) NOT NULL,
+	id int4 NOT NULL,
+	nome varchar(50) NOT NULL,
+	flag_ativo bpchar(1) NOT NULL,
 	CONSTRAINT ckc_flaativo_perfi CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_perfil PRIMARY KEY (idperfil)
 );
@@ -250,14 +250,14 @@ CREATE TABLE perfil (
 -- DROP TABLE programa;
 
 CREATE TABLE programa (
-	idprograma int4 NOT NULL,
-	nomprograma varchar(100) NOT NULL,
-	desprograma text NULL,
-	flaativo bpchar(1) NOT NULL,
-	idresponsavel int4 NULL,
-	idsimpr int4 NULL,
-	idsimpreixo int4 NULL,
-	idsimprareatematica int4 NULL,
+	id int4 NOT NULL,
+	nome varchar(100) NOT NULL,
+	descricao text NULL,
+	flag_ativo bpchar(1) NOT NULL,
+	responsavel_id int4 NULL,
+	simpr_id int4 NULL,
+#	simpreixo_id int4 NULL,
+#	simprareatematica int4 NULL,
 	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_programa PRIMARY KEY (idprograma)
 );
@@ -270,22 +270,22 @@ CREATE TABLE programa (
 -- DROP TABLE r3g;
 
 CREATE TABLE r3g (
-	idr3g int4 NOT NULL,
-	idprojeto int4 NOT NULL,
-	datdeteccao date NULL,
-	desplanejado text NULL,
-	desrealizado text NULL,
-	descausa text NULL,
-	desconsequencia text NULL,
-	descontramedida text NULL,
-	datprazocontramedida date NULL,
-	datprazocontramedidaatraso date NULL,
-	desresponsavel varchar(100) NULL,
-	desobs text NULL,
-	domtipo numeric(1) NULL,
-	domcorprazoprojeto numeric(1) NULL,
-	domstatuscontramedida numeric(1) NULL,
-	flacontramedidaefetiva numeric(1) NULL,
+	id int4 NOT NULL,
+	projeto_id int4 NOT NULL,
+    deteccao_data date NULL,
+	planejado text NULL,
+	realizado text NULL,
+	causa text NULL,
+	consequencia text NULL,
+	contramedida text NULL,
+	data_prazo_contramedida date NULL,
+	data_prazo_contramedida_atraso date NULL,
+	responsavel varchar(100) NULL,
+	obs text NULL,
+	#domtipo numeric(1) NULL,
+	#domcorprazoprojeto numeric(1) NULL,
+	#domstatuscontramedida numeric(1) NULL,
+	flag_contramedida_efetiva numeric(1) NULL,
 	CONSTRAINT cc_domcorprazoprojeto CHECK (((domcorprazoprojeto IS NULL) OR (domcorprazoprojeto = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric])))),
 	CONSTRAINT cc_domstatuscontramedida CHECK (((domstatuscontramedida IS NULL) OR (domstatuscontramedida = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric, (5)::numeric, (6)::numeric])))),
 	CONSTRAINT cc_domtipo CHECK (((domtipo IS NULL) OR (domtipo = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric])))),
@@ -301,7 +301,7 @@ CREATE TABLE r3g (
 -- DROP TABLE recurso;
 
 CREATE TABLE recurso (
-	idrecurso int4 NOT NULL,
+	id int4 NOT NULL,
 	ds_recurso varchar(50) NOT NULL,
 	descricao varchar(300) NULL,
 	CONSTRAINT pk_recurso PRIMARY KEY (idrecurso)
@@ -315,10 +315,10 @@ CREATE TABLE recurso (
 -- DROP TABLE resposta;
 
 CREATE TABLE resposta (
-	idresposta int4 NOT NULL,
-	numordem numeric(2) NULL,
-	flaativo varchar(1) NULL,
-	desresposta varchar(255) NULL,
+	id int4 NOT NULL,
+	ordem numeric(2) NULL,
+	flag_ativo varchar(1) NULL,
+	resposta varchar(255) NULL,
 	CONSTRAINT ckc_flaativo_respo CHECK (((flaativo IS NULL) OR ((flaativo)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT pk_resposta PRIMARY KEY (idresposta)
 );
@@ -1007,7 +1007,7 @@ CREATE TABLE acordoespecieinstrumento (
 	CONSTRAINT pk_acordoespecieinstrumento PRIMARY KEY (idacordoespecieinstrumento),
 );
 
-///////////////////////////////////////////////////////////////////////////////////
+-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 -- agenda definition
 
@@ -1036,7 +1036,8 @@ CREATE TABLE agenda (
 
 -- DROP TABLE aquisicao;
 
-CREATE TABLE aquisicao (
+
+CREATE TABLE aquisicao (   -- ///////////////////////// no foreign key ///////////////////////// -- 
 	id int4 NOT NULL,
 	aquisicao varchar(100) NULL,
 	projeto_id int4 NOT NULL,
@@ -1107,7 +1108,7 @@ CREATE TABLE contramedida (
 
 -- DROP TABLE diagnostico;
 
-CREATE TABLE diagnostico (
+CREATE TABLE diagnostico ( -- ///////////////////////// no foreign key ///////////////////////// -- 
 	id int8 NOT NULL,
 	descricao varchar(400) NOT NULL,
 	unidade_principal_id int4 NOT NULL,
@@ -1150,7 +1151,7 @@ CREATE UNIQUE INDEX idx_escritorio ON documento USING btree (iddocumento, idescr
 
 -- DROP TABLE entidade_externa;
 
-CREATE TABLE entidade_externa (
+CREATE TABLE entidade_externa (  -- ///////////////////////// no foreign key ///////////////////////// -- 
 	id int4 NOT NULL,
 	nome varchar(100) NOT NULL,
 	CONSTRAINT pk_entidadeexterna PRIMARY KEY (identidadeexterna),
@@ -1163,7 +1164,7 @@ CREATE TABLE entidade_externa (
 
 -- DROP TABLE item_secao;
 
-CREATE TABLE item_secao (
+CREATE TABLE item_secao ( 
 	id int4 NOT NULL,
 	descricao varchar(200) NOT NULL,
 	secao_id int4 NOT NULL,
@@ -1201,7 +1202,7 @@ CREATE TABLE marco (
 
 -- DROP TABLE objetivo;
 
-CREATE TABLE objetivo (
+CREATE TABLE objetivo ( 
 	id int4 NOT NULL,
 	nome varchar(100) NOT NULL,
 	ativo bpchar(1) NULL DEFAULT 's'::bpchar,
