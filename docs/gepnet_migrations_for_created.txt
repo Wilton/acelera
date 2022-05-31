@@ -60,7 +60,7 @@ CREATE TABLE bloqueio_projeto ( -- ///////////////////////// no foreign key ////
 
 -- DROP TABLE diautil;
 
-CREATE TABLE dia_util (
+CREATE TABLE dia_util ( -> tiago
 	id NOT NULL,
 	data_util date NOT NULL,
 	ano int4 NOT NULL,
@@ -121,29 +121,13 @@ CREATE TABLE licao (
 );
 
 
-
--- natureza definition
-
--- Drop table
-
--- DROP TABLE natureza;
-
-CREATE TABLE natureza (
-	id int4 NOT NULL,
-	nome varchar(100) NOT NULL,
-	ativo bpchar(1) NULL DEFAULT 's'::bpchar,
-	CONSTRAINT ckc_flaativo CHECK (((flaativo IS NULL) OR ((flaativo)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
-	CONSTRAINT pk_natureza PRIMARY KEY (idnatureza)
-);
-
-
 -- origemrisco definition
 
 -- Drop table
 
 -- DROP TABLE origemrisco;
 
-CREATE TABLE origem_risco (
+CREATE TABLE origem_risco ( -> tiago
 	id int4 NOT NULL,
 	descricao varchar(30) NULL,
 	created_at date NULL,
@@ -157,7 +141,7 @@ CREATE TABLE origem_risco (
 
 -- DROP TABLE parteinteressadafuncao;
 
-CREATE TABLE parte_interessada_funcao (
+CREATE TABLE parte_interessada_funcao ( -> tiago
 	id serial4 NOT NULL,
 	nome varchar(100) NOT NULL,
 	ordem int4 NOT NULL DEFAULT 0,
