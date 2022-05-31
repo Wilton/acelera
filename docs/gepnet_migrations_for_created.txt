@@ -83,22 +83,6 @@ CREATE TABLE elemento_despesa (
 );
 
 
--- etapa definition
-
--- Drop table
-
--- DROP TABLE etapa;
-
-CREATE TABLE etapa (
-	id int4 NOT NULL,
-	descricao varchar(100) NOT NULL,
-	created_at date NOT NULL,
-	updated_at date NOT NULL,
-	pgpassinado varchar(1) NULL,
-	CONSTRAINT pk_etapa PRIMARY KEY (idetapa)
-);
-
-
 -- evento definition
 
 -- Drop table
@@ -115,28 +99,6 @@ CREATE TABLE evento (
 	data_fim date NULL,
 	uf varchar(2) NULL,
 	CONSTRAINT pk_evento PRIMARY KEY (idevento)
-);
-
-
--- feriado definition
-
--- Drop table
-
--- DROP TABLE feriado;
-
-CREATE TABLE feriado (
-	id int4 NOT NULL,
-	dia int4 NOT NULL,
-	mes int4 NOT NULL,
-	ano int4 NOT NULL,
-	tipo bpchar(1) NOT NULL,
-	descricao varchar(200) NOT NULL,
-	created_at date NULL DEFAULT 'now'::text::date,
-	ativo bpchar(1) NOT NULL DEFAULT 'S'::bpchar,
-	CONSTRAINT ckc_flaativo_fer CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
-	CONSTRAINT ckc_tipoferiado_fer CHECK ((tipoferiado = ANY (ARRAY['1'::bpchar, '2'::bpchar]))),
-	CONSTRAINT pk_feriados PRIMARY KEY (diaferiado, mesferiado, anoferiado),
-	CONSTRAINT feriado_idferiado_key UNIQUE (idferiado)
 );
 
 
