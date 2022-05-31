@@ -13,11 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('dia_util', function (Blueprint $table) {
-            $table->id();
-            $table->date('data_util');
-            $table->integer('ano', 4);
-        });
+        //
     }
 
     /**
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dia_util');
+        //
     }
 };
