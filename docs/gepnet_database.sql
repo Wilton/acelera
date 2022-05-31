@@ -18,7 +18,7 @@ CREATE TABLE aceite ( -- ///////////////////////// no foreign key //////////////
 
 -- DROP TABLE acordoentidadeexterna;
 
-CREATE TABLE acordoentidadeexterna ( -- ///////////////////////// no foreign key ///////////////////////// -- 
+CREATE TABLE acordo_entidade_externa ( -- ///////////////////////// no foreign key ///////////////////////// -- 
 	id int4 NOT NULL,
 	entidade_externa_id int4 NOT NULL,
 	CONSTRAINT pk_acordoentidadeexterna PRIMARY KEY (id, entidade_externa_id)
@@ -331,10 +331,10 @@ CREATE TABLE resposta (
 -- DROP TABLE resposta_pesquisa;
 
 CREATE TABLE resposta_pesquisa (
-	idrespostapesquisa int4 NOT NULL,
-	desresposta varchar(255) NULL,
-	numordem numeric(2) NULL,
-	flaativo varchar(1) NULL,
+	id int4 NOT NULL,
+	descricao varchar(255) NULL,
+	ordem numeric(2) NULL,
+	ativo varchar(1) NULL,
 	CONSTRAINT cc_flaativo CHECK (((flaativo IS NULL) OR ((flaativo)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT pk_respostapesquisa PRIMARY KEY (idrespostapesquisa)
 );
@@ -360,9 +360,9 @@ CREATE TABLE setor (
 
 -- DROP TABLE tipoavaliacao;
 
-CREATE TABLE tipoavaliacao (
-	idtipoavaliacao int4 NOT NULL,
-	noavaliacao varchar(100) NULL,
+CREATE TABLE tipo_avaliacao (
+	id int4 NOT NULL,
+	nome varchar(100) NULL,
 	CONSTRAINT pk_tipoavaliacao PRIMARY KEY (idtipoavaliacao)
 );
 
@@ -373,11 +373,11 @@ CREATE TABLE tipoavaliacao (
 
 -- DROP TABLE tipocontramedida;
 
-CREATE TABLE tipocontramedida (
-	idtipocontramedida int4 NOT NULL,
-	notipocontramedida varchar(50) NOT NULL,
-	dstipocontramedida varchar(200) NULL,
-	idstatustipocontramedida int4 NULL,
+CREATE TABLE tipo_contramedida (
+	id int4 NOT NULL,
+	nome varchar(50) NOT NULL,
+	descricao varchar(200) NULL,
+	status int4 NULL,
 	CONSTRAINT pk_tipocontramedida PRIMARY KEY (idtipocontramedida)
 );
 
@@ -388,10 +388,10 @@ CREATE TABLE tipocontramedida (
 
 -- DROP TABLE tipodocumento;
 
-CREATE TABLE tipodocumento (
-	idtipodocumento int4 NOT NULL,
-	nomtipodocumento varchar(30) NULL,
-	flaativo varchar(1) NULL,
+CREATE TABLE tipo_documento (
+	id int4 NOT NULL,
+	nome varchar(30) NULL,
+	ativo varchar(1) NULL,
 	CONSTRAINT pk_tipodocumento PRIMARY KEY (idtipodocumento)
 );
 
@@ -402,11 +402,11 @@ CREATE TABLE tipodocumento (
 
 -- DROP TABLE tipoiniciativa;
 
-CREATE TABLE tipoiniciativa (
-	idtipoiniciativa int4 NOT NULL,
-	nomtipoiniciativa varchar(100) NULL,
-	destipoiniciativa text NULL,
-	flaativo bpchar(1) NOT NULL DEFAULT 'S'::bpchar,
+CREATE TABLE tipo_iniciativa (
+	id int4 NOT NULL,
+	nome varchar(100) NULL,
+	descricao text NULL,
+	ativo bpchar(1) NOT NULL DEFAULT 'S'::bpchar,
 	CONSTRAINT ckc_flaativo_perfi CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_tipoiniciativa PRIMARY KEY (idtipoiniciativa)
 );
@@ -418,10 +418,10 @@ CREATE TABLE tipoiniciativa (
 
 -- DROP TABLE tipomudanca;
 
-CREATE TABLE tipomudanca (
-	idtipomudanca int4 NOT NULL,
-	dsmudanca varchar(50) NOT NULL,
-	dtcadastro date NOT NULL,
+CREATE TABLE tipo_mudanca (
+	id int4 NOT NULL,
+	descricao varchar(50) NOT NULL,
+	created_at date NOT NULL,
 	CONSTRAINT pk_tipomudanca PRIMARY KEY (idtipomudanca)
 );
 
@@ -432,10 +432,10 @@ CREATE TABLE tipomudanca (
 
 -- DROP TABLE tiporisco;
 
-CREATE TABLE tiporisco (
-	idtiporisco int4 NOT NULL,
-	dstiporisco varchar(40) NOT NULL,
-	dtcadastro date NOT NULL,
+CREATE TABLE tipo_risco (
+	id int4 NOT NULL,
+	descricao varchar(40) NOT NULL,
+	created_at date NOT NULL,
 	CONSTRAINT pk_tiporisco PRIMARY KEY (idtiporisco)
 );
 
@@ -446,11 +446,11 @@ CREATE TABLE tiporisco (
 
 -- DROP TABLE tiposituacaoprojeto;
 
-CREATE TABLE tiposituacaoprojeto (
-	idtipo int4 NOT NULL,
-	nomtipo bpchar(80) NOT NULL,
-	desctipo text NULL,
-	flatiposituacao int4 NOT NULL,
+CREATE TABLE tipo_situacao_projeto (
+	id int4 NOT NULL,
+	nome bpchar(80) NOT NULL,
+	descricao text NULL,
+	status int4 NOT NULL,
 	CONSTRAINT tiposituacaoprojeto_pkey PRIMARY KEY (idtipo)
 );
 
@@ -461,15 +461,15 @@ CREATE TABLE tiposituacaoprojeto (
 
 -- DROP TABLE aceiteatividadecronograma;
 
-CREATE TABLE aceiteatividadecronograma (
-	idaceiteativcronograma int4 NOT NULL,
-	identrega int4 NOT NULL,
-	idprojeto int4 NOT NULL,
-	idaceite int4 NOT NULL,
-	idmarco int4 NULL,
+CREATE TABLE aceite_atividade_cronograma (
+	id int4 NOT NULL,
+	entrega_id int4 NOT NULL,
+	projeto_id int4 NOT NULL,
+	aceite_id int4 NOT NULL,
+	marco_id int4 NULL,
 	aceito bpchar(1) NOT NULL,
-	idpesaceitou int4 NULL,
-	dataceitacao date NULL,
+	pessoa_id int4 NULL,
+	created_at date NULL,
 	CONSTRAINT cc_aceito CHECK ((aceito = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_aceiteatividadecronograma PRIMARY KEY (idaceiteativcronograma),
 	CONSTRAINT fk_aceiteativcronograma_aceite FOREIGN KEY (idaceite) REFERENCES aceite(idaceite) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -483,13 +483,10 @@ CREATE TABLE aceiteatividadecronograma (
 -- DROP TABLE escritorio;
 
 CREATE TABLE escritorio (
-	idescritorio int4 NOT NULL,
-	nomescritorio varchar(100) NOT NULL,
-	flaativo bpchar(1) NOT NULL,
-	idresponsavel1 int4 NULL,
-	idresponsavel2 int4 NULL,
-	idescritoriope int4 NULL DEFAULT 0,
-	nomescritorio2 varchar(100) NULL,
+	id int4 NOT NULL,
+	nome varchar(100) NOT NULL,
+	ativo bpchar(1) NOT NULL,
+	nome varchar(100) NULL,
 	desemail varchar(100) NULL,
 	numfone varchar(16) NULL,
 	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
@@ -499,39 +496,47 @@ CREATE TABLE escritorio (
 CREATE UNIQUE INDEX id_escritorio ON escritorio USING btree (nomescritorio2);
 
 
+CREATE TABLE escritorio_responsaveis (
+	id int4 NOT NULL,
+	ativo bpchar(1) NOT NULL,
+	responsavel_id int4 NULL,
+	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
+	CONSTRAINT pk_escritorio PRIMARY KEY (idescritorio),
+	CONSTRAINT fk_escritorio_escritoriopai FOREIGN KEY (idescritoriope) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
 -- eventoavaliacao definition
 
 -- Drop table
 
 -- DROP TABLE eventoavaliacao;
 
-CREATE TABLE eventoavaliacao (
-	ideventoavaliacao int4 NOT NULL,
-	idevento int4 NOT NULL,
-	desdestaqueservidor text NULL,
-	desobs text NULL,
-	idavaliador int4 NULL,
-	idavaliado int4 NULL,
-	numpontualidade int4 NULL,
-	numordens int4 NULL,
-	numrespeitochefia int4 NULL,
-	numrespeitocolega int4 NULL,
-	numurbanidade int4 NULL,
-	numequilibrio int4 NULL,
-	numcomprometimento int4 NULL,
-	numesforco int4 NULL,
-	numtrabalhoequipe int4 NULL,
-	numauxiliouequipe int4 NULL,
-	numaceitousugestao int4 NULL,
-	numconhecimentonorma int4 NULL,
-	numalternativaproblema int4 NULL,
-	numiniciativa int4 NULL,
-	numtarefacomplexa int4 NULL,
-	numnotaavaliador int4 NULL,
-	nummedia float8 NULL,
-	nummediafinal float8 NULL,
-	numtotalavaliado int4 NULL,
-	idtipoavaliacao int4 NULL,
+CREATE TABLE evento_avaliacao (
+	id int4 NOT NULL,
+	evento_id int4 NOT NULL,
+	destaque text NULL,
+	observacao text NULL,
+	avaliador_id int4 NULL,
+	avaliado_id int4 NULL,
+	pontualidade int4 NULL,
+	ordem int4 NULL,
+	respeito_chefia int4 NULL,
+	respeito_colega int4 NULL,
+	urbanidade int4 NULL,
+	equilibrio int4 NULL,
+	comprometimento int4 NULL,
+	esforco int4 NULL,
+	trabalho_equipe int4 NULL,
+	auxiliou_equipe int4 NULL,
+	aceitou_sugestao int4 NULL,
+	conhecimento_norma int4 NULL,
+	alternativa_problema int4 NULL,
+	iniciativa int4 NULL,
+	tarefa_complexa int4 NULL,
+	nota_avaliador int4 NULL,
+	media float8 NULL,
+	media_final float8 NULL,
+	total_avaliado int4 NULL,
+	tipo_avaliacao_id int4 NULL,
 	CONSTRAINT pk_eventoavaliacao PRIMARY KEY (ideventoavaliacao),
 	CONSTRAINT fk_eventoavaliacao_evento FOREIGN KEY (idevento) REFERENCES evento(idevento) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_eventoavaliacao_tipoavaliacao FOREIGN KEY (idtipoavaliacao) REFERENCES tipoavaliacao(idtipoavaliacao) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -545,11 +550,11 @@ CREATE TABLE eventoavaliacao (
 -- DROP TABLE frase;
 
 CREATE TABLE frase (
-	idfrase int4 NOT NULL,
-	domtipofrase numeric(1) NULL,
-	flaativo varchar(1) NULL,
-	idescritorio int4 NOT NULL,
-	desfrase varchar(255) NULL,
+	id int4 NOT NULL,
+	tipo numeric(1) NULL,
+	ativo varchar(1) NULL,
+	escritorio_id int4 NOT NULL,
+	descricao varchar(255) NULL,
 	CONSTRAINT ckc_domtipofrase_frase CHECK (((domtipofrase IS NULL) OR (domtipofrase = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric, (5)::numeric, (6)::numeric, (7)::numeric])))),
 	CONSTRAINT ckc_flaativo_frase CHECK (((flaativo IS NULL) OR ((flaativo)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT pk_frase PRIMARY KEY (idfrase),
@@ -564,11 +569,11 @@ CREATE TABLE frase (
 -- DROP TABLE frase_pesquisa;
 
 CREATE TABLE frase_pesquisa (
-	idfrasepesquisa int4 NOT NULL,
-	domtipofrase numeric(1) NULL,
-	flaativo varchar(1) NULL,
-	idescritorio int4 NOT NULL,
-	desfrase varchar(255) NOT NULL,
+	id int4 NOT NULL,
+	tipo numeric(1) NULL,
+	ativo varchar(1) NULL,
+	escritorio_id int4 NOT NULL,
+	descricao varchar(255) NOT NULL,
 	CONSTRAINT cc_flaativofrase CHECK (((flaativo IS NULL) OR ((flaativo)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT ckc_domtipofrase_frase CHECK (((domtipofrase IS NULL) OR (domtipofrase = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric, (5)::numeric, (6)::numeric, (7)::numeric])))),
 	CONSTRAINT pk_frasepesquisa PRIMARY KEY (idfrasepesquisa),
@@ -583,13 +588,12 @@ CREATE TABLE frase_pesquisa (
 -- DROP TABLE modulo;
 
 CREATE TABLE modulo (
-	idmodulo int4 NOT NULL,
-	idmodulopai int4 NULL,
-	numsequencial int4 NULL,
-	nomitemmenu varchar(30) NOT NULL,
-	deslink varchar(50) NULL,
-	flaativo bpchar(1) NOT NULL,
-	flaitemmenu bpchar(1) NOT NULL,
+	id int4 NOT NULL,
+	sequencial int4 NULL,
+	nome_item_menu varchar(30) NOT NULL,
+	url varchar(50) NULL,
+	ativo bpchar(1) NOT NULL,
+	ativo bpchar(1) NOT NULL,
 	CONSTRAINT pk_modulo PRIMARY KEY (idmodulo),
 	CONSTRAINT fk_modulo_modulopai FOREIGN KEY (idmodulopai) REFERENCES modulo(idmodulo) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
@@ -602,18 +606,18 @@ CREATE TABLE modulo (
 -- DROP TABLE mudanca;
 
 CREATE TABLE mudanca (
-	idmudanca int4 NOT NULL,
-	idprojeto int4 NOT NULL,
-	nomsolicitante varchar(100) NULL,
-	datsolicitacao date NULL,
-	datdecisao date NULL,
-	desmudanca text NULL,
-	desjustificativa text NULL,
-	despareceregp text NULL,
-	desaprovadores text NULL,
-	despareceraprovadores text NULL,
-	idtipomudanca int4 NOT NULL,
-	flaaprovada bpchar(1) NULL,
+	id int4 NOT NULL,
+	projeto_id int4 NOT NULL,
+	solicitante varchar(100) NULL,
+	created_at date NULL,
+	data_decisao date NULL,
+	descricao text NULL,
+	justificativa text NULL,
+	parecere text NULL,
+	aprovadores text NULL,
+	descricao_aprovadores text NULL,
+	tipo_mudanca_id int4 NOT NULL,
+	aprovada bpchar(1) NULL,
 	CONSTRAINT ckc_flaaprovada CHECK (((flaaprovada IS NULL) OR ((flaaprovada)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT pk_mudanca PRIMARY KEY (idmudanca),
 	CONSTRAINT fk_mudanca_tipomudanca FOREIGN KEY (idtipomudanca) REFERENCES tipomudanca(idtipomudanca) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -626,9 +630,9 @@ CREATE TABLE mudanca (
 
 -- DROP TABLE perfilmodulo;
 
-CREATE TABLE perfilmodulo (
-	idperfil int4 NOT NULL,
-	idmodulo int4 NOT NULL,
+CREATE TABLE perfil_modulo (
+	perfil_id int4 NOT NULL,
+	modulo_id int4 NOT NULL,
 	CONSTRAINT pk_perfilmodulo PRIMARY KEY (idperfil, idmodulo),
 	CONSTRAINT fk_perfilmodulo_modulo FOREIGN KEY (idmodulo) REFERENCES modulo(idmodulo) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_perfilmodulo_perfil FOREIGN KEY (idperfil) REFERENCES perfil(idperfil) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -641,12 +645,12 @@ CREATE TABLE perfilmodulo (
 
 -- DROP TABLE perfilpessoa;
 
-CREATE TABLE perfilpessoa (
-	idpessoa int4 NOT NULL,
-	idperfil int4 NOT NULL,
-	idescritorio int4 NOT NULL,
-	flaativo bpchar(1) NOT NULL,
-	idperfilpessoa int4 NOT NULL,
+CREATE TABLE perfil_pessoa (
+	id int4 NOT NULL,
+	pessoa_id int4 NOT NULL,
+	perfil_id int4 NOT NULL,
+	escritorio_id int4 NOT NULL,
+	ativo bpchar(1) NOT NULL,
 	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_perfilpessoa PRIMARY KEY (idperfilpessoa),
 	CONSTRAINT fk_perfilpessoa_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio),
@@ -662,10 +666,10 @@ CREATE UNIQUE INDEX id_perfil_pessoa ON perfilpessoa USING btree (idpessoa, idpe
 -- DROP TABLE permissao;
 
 CREATE TABLE permissao (
-	idpermissao int4 NOT NULL,
-	idrecurso int4 NOT NULL,
-	ds_permissao varchar(200) NULL,
-	no_permissao varchar(50) NULL,
+	id int4 NOT NULL,
+	recurso_id int4 NOT NULL,
+	descricao varchar(200) NULL,
+	nome varchar(50) NULL,
 	visualizar bool NULL DEFAULT false,
 	tipo bpchar(1) NULL,
 	CONSTRAINT pk_permissao PRIMARY KEY (idpermissao),
@@ -680,10 +684,10 @@ CREATE UNIQUE INDEX id_recurso ON permissao USING btree (idrecurso, idpermissao)
 
 -- DROP TABLE permissaoperfil;
 
-CREATE TABLE permissaoperfil (
-	idpermissaoperfil int4 NOT NULL,
-	idperfil int4 NOT NULL,
-	idpermissao int4 NOT NULL,
+CREATE TABLE permissao_perfil (
+	id int4 NOT NULL,
+	perfil_id int4 NOT NULL,
+	permissao_id int4 NOT NULL,
 	CONSTRAINT pk_permissaoperfil PRIMARY KEY (idpermissaoperfil),
 	CONSTRAINT fk_perfil_permissaoperfil FOREIGN KEY (idperfil) REFERENCES perfil(idperfil) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_permissao_permissaoperfil FOREIGN KEY (idpermissao) REFERENCES permissao(idpermissao)
@@ -699,20 +703,20 @@ CREATE UNIQUE INDEX idx_permissaoperfil ON permissaoperfil USING btree (idpermis
 -- DROP TABLE pessoa;
 
 CREATE TABLE pessoa (
-	idpessoa int4 NOT NULL,
-	nompessoa varchar(100) NOT NULL,
-	desobs text NULL,
-	numfone varchar(16) NULL,
-	numcelular varchar(16) NULL,
-	desemail varchar(100) NULL,
-	nummatricula int4 NULL,
-	desfuncao varchar(50) NULL,
-	id_unidade int4 NULL,
-	domcargo varchar(10) NOT NULL,
-	id_servidor int4 NULL,
-	flaagenda varchar(1) NULL DEFAULT 'S'::character varying,
-	numcpf varchar(11) NULL,
-	numsiape int8 NULL,
+	id int4 NOT NULL,
+	nome varchar(100) NOT NULL,
+	obvervacao text NULL,
+	telefone_fixo varchar(16) NULL,
+	telefone_celular varchar(16) NULL,
+	email varchar(100) NULL,
+	matricula int4 NULL,
+	funcao varchar(50) NULL,
+	unidade_id int4 NULL,
+	cargo varchar(10) NOT NULL,
+	servidor_id int4 NULL,
+	agenda varchar(1) NULL DEFAULT 'S'::character varying,
+	cpf varchar(11) NULL,
+	siape int8 NULL,
 	versaosistema varchar(10) NULL,
 	CONSTRAINT pk_pessoa PRIMARY KEY (idpessoa),
 );
@@ -726,13 +730,12 @@ CREATE UNIQUE INDEX idx_cpf ON pessoa USING btree (numcpf);
 -- DROP TABLE portfolio;
 
 CREATE TABLE portfolio (
-	idportfolio int4 NOT NULL,
-	noportfolio varchar(100) NOT NULL,
-	idportfoliopai int4 NULL,
+	id int4 NOT NULL,
+	nome varchar(100) NOT NULL,
 	ativo bpchar(1) NOT NULL,
 	tipo numeric(1) NOT NULL,
-	idresponsavel int4 NOT NULL,
-	idescritorio int4 NOT NULL,
+	responsavel_id int4 NOT NULL,
+	escritorio_id int4 NOT NULL,
 	CONSTRAINT ckc_ativo_portf CHECK ((ativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT ckc_tipo_portf CHECK ((tipo = ANY (ARRAY[(1)::numeric, (2)::numeric]))),
 	CONSTRAINT pk_portfolio PRIMARY KEY (idportfolio),
@@ -747,9 +750,9 @@ CREATE TABLE portfolio (
 
 -- DROP TABLE portifolioprograma;
 
-CREATE TABLE portifolioprograma (
-	idprograma int4 NOT NULL,
-	idportfolio int4 NOT NULL,
+CREATE TABLE portifolio_programa (
+	id int4 NOT NULL,
+	programa_id int4 NOT NULL,
 	CONSTRAINT pk_portifolioprograma PRIMARY KEY (idprograma, idportfolio),
 	CONSTRAINT fk_portifolioprograma_portifolio FOREIGN KEY (idportfolio) REFERENCES portfolio(idportfolio) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_portifolioprograma_programa FOREIGN KEY (idprograma) REFERENCES programa(idprograma) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -763,18 +766,17 @@ CREATE TABLE portifolioprograma (
 -- DROP TABLE processo;
 
 CREATE TABLE processo (
-	idprocesso int4 NOT NULL,
-	idprocessopai int4 NULL,
-	nomcodigo varchar(20) NULL,
-	nomprocesso varchar(100) NULL,
-	idsetor int4 NULL,
-	desprocesso text NULL,
-	iddono int4 NOT NULL,
-	idexecutor int4 NOT NULL,
-	idgestor int4 NOT NULL,
-	idconsultor int4 NOT NULL,
-	numvalidade int4 NULL,
-	datatualizacao date NULL,
+	id int4 NOT NULL,
+	codigo varchar(20) NULL,
+	processo varchar(100) NULL,
+	setor_id int4 NULL,
+	descricao text NULL,
+	dono_id int4 NOT NULL,
+	executor_id int4 NOT NULL,
+	gestor_id int4 NOT NULL,
+	consultor_id int4 NOT NULL,
+	validade int4 NULL,
+	updated_at date NULL,
 	CONSTRAINT pk_processo PRIMARY KEY (idprocesso),
 	CONSTRAINT fk_processo_setor FOREIGN KEY (idsetor) REFERENCES setor(idsetor) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
@@ -1967,11 +1969,11 @@ CREATE TABLE atividade_cronopredecessora (
 -- DROP TABLE atividadeocultar;
 
 CREATE TABLE atividade_ocultar (
+	id int9 NOT NULL, 
 	projeto_id int4 NOT NULL,
 	atividade_cronograma_id int8 NOT NULL,
 	pessoa_id int4 NOT NULL,
 	data_cadastro date NULL DEFAULT 'now'::text::date,
-	CONSTRAINT pk_atividade_projeto_pessoa PRIMARY KEY (idatividadecronograma, idprojeto, idpessoa),
 	CONSTRAINT fk_atividade_projeto_visibilidade FOREIGN KEY (idprojeto,idatividadecronograma) REFERENCES <?>() ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_pessoa_ocultar FOREIGN KEY (idpessoa) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
@@ -2028,7 +2030,7 @@ CREATE TABLE comunicacao (
 -- DROP TABLE questdiagnosticopadronizamelhoria;
 
 CREATE TABLE questinario_diagnostico_padroniza_melhoria (
-	padronizacao_melhoria_id int8 NOT NULL,
+	id int8 NOT NULL,
 	melhoria_id int8 NULL,
 	revisada text NOT NULL,
 	prazo_id int4 NOT NULL,
@@ -2038,7 +2040,7 @@ CREATE TABLE questinario_diagnostico_padroniza_melhoria (
 	incidencia numeric(5, 2) NULL,
 	votacao int4 NULL,
 	flag_agrupadora bool NULL,
-	titulogrupo text NULL,
+	titulo_grupo text NULL,
 	informacoes_complementares text NULL,
 	melhoria_agrupadora int8 NULL,
 	CONSTRAINT pk_questdiagnosticopadronizamelhoria PRIMARY KEY (idpadronizacaomelhoria),
