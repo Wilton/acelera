@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('perfil', function (Blueprint $table) {
+        Schema::create('parte_interessada_funcao', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 200);
-            $table->string('ativo', 1);
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perfil');
+        Schema::dropIfExists('parte_interessada_funcao');
     }
 };
