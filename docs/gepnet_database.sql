@@ -1455,7 +1455,7 @@ CREATE INDEX fki_projeto_tipoiniciativa ON projeto USING btree (idtipoiniciativa
 -- DROP TABLE questionario_pesquisa;
 
 CREATE TABLE questionario_pesquisa (
-	questionario_pesquisa_id int4 NOT NULL,
+	id int4 NOT NULL,
 	pesquisa_id int4 NOT NULL,
 	nome varchar(255) NULL,
 	observacao text NULL,
@@ -1474,10 +1474,10 @@ CREATE TABLE questionario_pesquisa (
 
 -- DROP TABLE questionariofrase_pesquisa;
 
-CREATE TABLE questionariofrase_pesquisa (
+CREATE TABLE questionario_frase_pesquisa (
 	questionario_pesquisa_id int4 NOT NULL,
-	frasepesquisa_id int4 NOT NULL,
-#	numerordempergunta int4 NOT NULL,
+	frase_pesquisa_id int4 NOT NULL,
+	ordem int4 NOT NULL,
 	obrigatoriedade bpchar(1) NOT NULL DEFAULT 'N'::bpchar,
 	CONSTRAINT cc_obrigatoriedade CHECK ((obrigatoriedade = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_questionariofrase_pesquisa PRIMARY KEY (idquestionariopesquisa, idfrasepesquisa),
@@ -1523,10 +1523,10 @@ CREATE TABLE statusreport (
 	data_marco_tendencia date NULL,
 	data_fim_projeto_tendencia date NULL,
 	flag_aprovado numeric(1) NULL,
-#	domcorrisco numeric(1) NULL,
+	cor_risco numeric(1) NULL,
 	contramedida text NULL,
 	risco text NULL,
-#	domstatusprojeto int4 NOT NULL,
+	status_projeto int4 NOT NULL,
 	data_provacao date NULL,
 	percentual_concluido numeric(5, 2) NULL DEFAULT 0,
 	percentual_previsto numeric(5, 2) NULL DEFAULT 0,
@@ -1536,12 +1536,12 @@ CREATE TABLE statusreport (
 	percentual_custo_real numeric(5, 2) NULL DEFAULT 0,
 	custo_real_total int8 NULL DEFAULT 0::bigint,
 	responsavel_aceitacao_id int4 NULL DEFAULT 0,
-#	pgpassinado varchar(1) NULL DEFAULT 'N'::character varying,
-#	tepassinado varchar(1) NULL DEFAULT 'N'::character varying,
+	pgp_assinado varchar(1) NULL DEFAULT 'N'::character varying,
+	tep_assinado varchar(1) NULL DEFAULT 'N'::character varying,
 	andamento_projeto text NULL,
 	percentual_concluido_marco numeric(5, 2) NULL,
 	dia_atraso int4 NULL,
-#	domcoratraso varchar(10) NULL,
+	cor_atraso varchar(10) NULL,
 	criterio_farol int4 NULL,
 	fim_projeto date NULL,
 	CONSTRAINT ckc_aprovacao CHECK ((((flaaprovado = (1)::numeric) AND (dataprovacao IS NOT NULL)) OR ((flaaprovado = (2)::numeric) AND (dataprovacao IS NULL)))),
@@ -1563,7 +1563,7 @@ WITH (
 -- DROP TABLE unidade_vinculada;
 
 CREATE TABLE unidade_vinculada (
-	unidade_id int4 NOT NULL,
+	id int4 NOT NULL,
 	unidade_principal_id int4 NOT NULL,
 	diagnostico_id int8 NOT NULL,
 	CONSTRAINT pk_unidadevinculada PRIMARY KEY (idunidade, id_unidadeprincipal, iddiagnostico),
@@ -1583,8 +1583,6 @@ CREATE TABLE vincula_questionario (
 	disponivel bpchar(1) NOT NULL DEFAULT 2,
 	disponibilidade date NOT NULL,
 	encerrramento date NULL,
-	pesdisponibiliza_id int4 NOT NULL,
-#	idpesencerrou int4 NULL,
 	CONSTRAINT pk_vincula_questionario PRIMARY KEY (idquestionario, iddiagnostico),
 	CONSTRAINT fk_diagnostico_vinculaquestionario FOREIGN KEY (iddiagnostico) REFERENCES diagnostico(iddiagnostico) ON DELETE CASCADE,
 	CONSTRAINT fk_pessoa_vinculaquestionario FOREIGN KEY (idpesdisponibiliza) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT,
@@ -1674,8 +1672,8 @@ CREATE TABLE diario_bordo (
 	id int4 NOT NULL,
 	projeto_id int4 NOT NULL,
 	diario_bordo date NULL,
-#	domreferencia varchar(20) NULL,
-#	domsemafaro numeric(1) NULL,
+	referencia varchar(20) NULL,
+	semafaro numeric(1) NULL,
 	diario_bordo text NULL,
 	alterador_id int4 NULL,
 	CONSTRAINT ckc_domsemafaro_diari CHECK (((domsemafaro IS NULL) OR (domsemafaro = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric])))),
@@ -1696,8 +1694,6 @@ CREATE TABLE historico_publicacao (
 	pesquisa_id int4 NOT NULL,
 	publicacao timestamp NULL,
 	encerramento timestamp NULL,
-#	idpespublicou int4 NULL,
-#	idpesencerrou int4 NULL,
 	CONSTRAINT pk_hstpublicacao PRIMARY KEY (idhistoricopublicacao),
 	CONSTRAINT fk_historicopesquisa_pesquisa FOREIGN KEY (idpesquisa) REFERENCES pesquisa(idpesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
@@ -1756,7 +1752,7 @@ CREATE TABLE parte_interessada (
 	funcao varchar(300) NULL,
 	telefone varchar(50) NULL,
 	email varchar(50) NULL,
-#	domnivelinfluencia varchar(10) NULL,
+	nivel_influencia varchar(10) NULL,
 	pessoa_interna_id int4 NULL,
 	observacao bpchar(200) NULL,
 	tp_permissao varchar(1) NULL DEFAULT '1'::character varying,
@@ -1794,7 +1790,7 @@ CREATE TABLE permissao_projeto (
 	recurso_id int4 NOT NULL,
 	permissao_id int4 NOT NULL,
 	pessoa_id int4 NOT NULL,
-#	"data" date NOT NULL,
+	created_at date NOT NULL,
 	ativo bpchar(1) NOT NULL DEFAULT 'S'::bpchar,
 	CONSTRAINT ckc_ativo_ CHECK (((ativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar])) AND ((ativo)::text = upper((ativo)::text)))),
 	CONSTRAINT pk_permissaoprojeto PRIMARY KEY (idpermissao, idprojeto, idparteinteressada),
