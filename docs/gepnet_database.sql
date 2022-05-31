@@ -74,7 +74,7 @@ CREATE TABLE bloqueio_projeto ( -- ///////////////////////// no foreign key ////
 CREATE TABLE dia_util (
 	id NOT NULL,
 	data_util date NOT NULL,
-	ano int4 NOT NULL,
+	ano int 4 NOT NULL,
 	CONSTRAINT pk_diautil PRIMARY KEY (iddiautil)
 );
 
