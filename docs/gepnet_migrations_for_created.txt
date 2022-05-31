@@ -135,23 +135,6 @@ CREATE TABLE origem_risco ( -> tiago
 );
 
 
-
-
--- perfil definition
-
--- Drop table
-
--- DROP TABLE perfil;
-
-CREATE TABLE perfil (
-	id int4 NOT NULL,
-	nome varchar(50) NOT NULL,
-	flag_ativo bpchar(1) NOT NULL,
-	CONSTRAINT ckc_flaativo_perfi CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
-	CONSTRAINT pk_perfil PRIMARY KEY (idperfil)
-);
-
-
 -- programa definition
 
 -- Drop table
