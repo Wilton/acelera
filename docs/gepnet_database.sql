@@ -1862,13 +1862,13 @@ CREATE INDEX fki_diagnostico ON questionariodiagnosticomelhoria USING btree (idd
 -- DROP TABLE resposta_pergunta;
 
 CREATE TABLE resposta_pergunta (
-	id_resposta_pergunta int8 NOT NULL,
-	ds_resposta_descritiva text NULL,
-	idpergunta int8 NOT NULL,
-	idresposta int8 NULL,
-	nrquestionario int8 NOT NULL,
-	idquestionario int8 NOT NULL,
-	iddiagnostico int8 NOT NULL,
+	id int8 NOT NULL,
+	resposta_descritiva text NULL,
+	pergunta_id int8 NOT NULL,
+	resposta_id int8 NULL,
+	nr_questionario int8 NOT NULL,
+	questionario_id int8 NOT NULL,
+	diagnostico_id int8 NOT NULL,
 	CONSTRAINT pk_resposta_pergunta PRIMARY KEY (id_resposta_pergunta),
 	CONSTRAINT fk_opcaoresposta_resposta_pergunta FOREIGN KEY (idresposta) REFERENCES opcao_resposta(idresposta) ON DELETE CASCADE,
 	CONSTRAINT fk_pergunta_resposta_pergunta FOREIGN KEY (idpergunta) REFERENCES pergunta(idpergunta) ON DELETE CASCADE,
@@ -1884,8 +1884,8 @@ CREATE TABLE resposta_pergunta (
 
 CREATE TABLE resposta_questionariordiagnostico (
 	id_resposta_pergunta int8 NOT NULL,
-	idquestionario int8 NOT NULL,
-	iddiagnostico int8 NOT NULL,
+	questionario_id int8 NOT NULL,
+	diagnostico_id int8 NOT NULL,
 	numero int8 NOT NULL,
 	CONSTRAINT pk_resposta_questionariorespondido PRIMARY KEY (id_resposta_pergunta, idquestionario, iddiagnostico, numero),
 	CONSTRAINT fk_questionariorespondido_respostaquestionariorespondido FOREIGN KEY (idquestionario,iddiagnostico,numero) REFERENCES questionariodiagnostico_respondido(idquestionario,iddiagnostico,numero) ON DELETE CASCADE,
@@ -1949,10 +1949,9 @@ CREATE INDEX idx_grupo ON atividadecronograma USING btree (idprojeto, idgrupo);
 
 -- DROP TABLE atividadecronopredecessora;
 
-CREATE TABLE atividade_cronopredecessora (
+CREATE TABLE atividade_cronograma_predecessora (
 	atividade_cronograma_id int8 NOT NULL,
-	projeto_cronograma_id int4 NOT NULL,
-	atividade_predecessora_id int8 NOT NULL,
+	id int8 NOT NULL,
 	CONSTRAINT pk_atividadecronopredecessora PRIMARY KEY (idatividadecronograma, idprojetocronograma, idatividadepredecessora),
 	CONSTRAINT fk_cronpredecessora_cronograma FOREIGN KEY (idatividadecronograma,idprojetocronograma) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE CASCADE,
 	CONSTRAINT fk_cronpredecessora_predecessora FOREIGN KEY (idatividadepredecessora,idprojetocronograma) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE CASCADE
