@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('dia_util', function (Blueprint $table) {
             $table->id();
             $table->date('data_util');
-            $table->integer('ano', 4);
+            $table->string('ano', 4);
         });
     }
 

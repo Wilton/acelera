@@ -8,8 +8,8 @@ CREATE TABLE aceite ( -- ///////////////////////// no foreign key //////////////
 	id int4 NOT NULL,
 	descricao text NULL,
 	parecer text NULL,
-	CONSTRAINT pk_aceite PRIMARY KEY (id)
-);
+	CONSTRAINT pk_aceite PRIMARY KEY (id) 
+); --/////////////criada/////////////
 
 
 -- acordoentidadeexterna definition
@@ -22,7 +22,7 @@ CREATE TABLE acordo_entidade_externa ( -- ///////////////////////// no foreign k
 	id int4 NOT NULL,
 	entidade_externa_id int4 NOT NULL,
 	CONSTRAINT pk_acordoentidadeexterna PRIMARY KEY (id, entidade_externa_id)
-);
+); 
 
 
 -- ata definition
@@ -76,7 +76,7 @@ CREATE TABLE dia_util (
 	data_util date NOT NULL,
 	ano int 4 NOT NULL,
 	CONSTRAINT pk_diautil PRIMARY KEY (iddiautil)
-);
+);--/////////////criada/////////////
 
 
 -- elementodespesa definition
@@ -107,7 +107,7 @@ CREATE TABLE etapa (
 	updated_at date NOT NULL,
 	pgpassinado varchar(1) NULL,
 	CONSTRAINT pk_etapa PRIMARY KEY (idetapa)
-);
+);--/////////////criada/////////////
 
 
 -- evento definition
@@ -148,7 +148,7 @@ CREATE TABLE feriado (
 	CONSTRAINT ckc_tipoferiado_fer CHECK ((tipoferiado = ANY (ARRAY['1'::bpchar, '2'::bpchar]))),
 	CONSTRAINT pk_feriados PRIMARY KEY (diaferiado, mesferiado, anoferiado),
 	CONSTRAINT feriado_idferiado_key UNIQUE (idferiado)
-);
+);--/////////////criada/////////////
 
 
 -- funcionalidade definition
@@ -162,7 +162,8 @@ CREATE TABLE funcionalidade (
 	nome varchar(80) NOT NULL,
 	descricao varchar(255) NOT NULL,
 	CONSTRAINT pk_funcionalidade PRIMARY KEY (idfuncionalidade)
-);
+
+); --/////////////criada/////////////
 
 
 -- licao definition
@@ -197,7 +198,7 @@ CREATE TABLE natureza (
 	ativo bpchar(1) NULL DEFAULT 's'::bpchar,
 	CONSTRAINT ckc_flaativo CHECK (((flaativo IS NULL) OR ((flaativo)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT pk_natureza PRIMARY KEY (idnatureza)
-);
+);  --/////////////criada/////////////
 
 
 -- origemrisco definition
@@ -225,7 +226,7 @@ CREATE TABLE parte_interessada_funcao (
 	nome varchar(100) NOT NULL,
 	ordem int4 NOT NULL DEFAULT 0,
 	CONSTRAINT "PK_parteinteressadafuncao" PRIMARY KEY (idparteinteressadafuncao)
-);
+);--/////////////criada/////////////
 
 
 -- perfil definition
@@ -240,7 +241,7 @@ CREATE TABLE perfil (
 	flag_ativo bpchar(1) NOT NULL,
 	CONSTRAINT ckc_flaativo_perfi CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_perfil PRIMARY KEY (idperfil)
-);
+);--/////////////criada/////////////
 
 
 -- programa definition
@@ -321,7 +322,7 @@ CREATE TABLE resposta (
 	resposta varchar(255) NULL,
 	CONSTRAINT ckc_flaativo_respo CHECK (((flaativo IS NULL) OR ((flaativo)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT pk_resposta PRIMARY KEY (idresposta)
-);
+);--/////////////criada/////////////
 
 
 -- resposta_pesquisa definition
@@ -337,7 +338,7 @@ CREATE TABLE resposta_pesquisa (
 	ativo varchar(1) NULL,
 	CONSTRAINT cc_flaativo CHECK (((flaativo IS NULL) OR ((flaativo)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT pk_respostapesquisa PRIMARY KEY (idrespostapesquisa)
-);
+);--/////////////criada/////////////
 
 
 -- setor definition
