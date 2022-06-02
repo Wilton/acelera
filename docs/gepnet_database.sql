@@ -212,7 +212,7 @@ CREATE TABLE origem_risco (
 	descricao varchar(30) NULL,
 	created_at date NULL,
 	CONSTRAINT pk_origemrisco PRIMARY KEY (idorigemrisco)
-);
+);--/////////////criada/////////////
 
 
 -- parteinteressadafuncao definition
@@ -348,11 +348,11 @@ CREATE TABLE resposta_pesquisa (
 -- DROP TABLE setor;
 
 CREATE TABLE setor (
-	idsetor int4 NOT NULL,
-	nomsetor varchar(100) NOT NULL,
-	flaativo bpchar(1) NULL DEFAULT 'S'::bpchar,
+	id int4 NOT NULL,
+	nome varchar(100) NOT NULL,
+	flag_ativo bpchar(1) NULL DEFAULT 'S'::bpchar,
 	CONSTRAINT pk_setor PRIMARY KEY (idsetor)
-);
+);--/////////////criada/////////////
 
 
 -- tipoavaliacao definition
@@ -365,7 +365,7 @@ CREATE TABLE tipo_avaliacao (
 	id int4 NOT NULL,
 	nome varchar(100) NULL,
 	CONSTRAINT pk_tipoavaliacao PRIMARY KEY (idtipoavaliacao)
-);
+);--/////////////criada/////////////
 
 
 -- tipocontramedida definition
@@ -380,7 +380,7 @@ CREATE TABLE tipo_contramedida (
 	descricao varchar(200) NULL,
 	status int4 NULL,
 	CONSTRAINT pk_tipocontramedida PRIMARY KEY (idtipocontramedida)
-);
+);--/////////////criada/////////////
 
 
 -- tipodocumento definition
@@ -394,7 +394,7 @@ CREATE TABLE tipo_documento (
 	nome varchar(30) NULL,
 	ativo varchar(1) NULL,
 	CONSTRAINT pk_tipodocumento PRIMARY KEY (idtipodocumento)
-);
+);--/////////////criada/////////////
 
 
 -- tipoiniciativa definition
@@ -410,7 +410,7 @@ CREATE TABLE tipo_iniciativa (
 	ativo bpchar(1) NOT NULL DEFAULT 'S'::bpchar,
 	CONSTRAINT ckc_flaativo_perfi CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_tipoiniciativa PRIMARY KEY (idtipoiniciativa)
-);
+);--/////////////criada/////////////
 
 
 -- tipomudanca definition
@@ -424,7 +424,7 @@ CREATE TABLE tipo_mudanca (
 	descricao varchar(50) NOT NULL,
 	created_at date NOT NULL,
 	CONSTRAINT pk_tipomudanca PRIMARY KEY (idtipomudanca)
-);
+);--/////////////criada/////////////
 
 
 -- tiporisco definition
@@ -438,7 +438,7 @@ CREATE TABLE tipo_risco (
 	descricao varchar(40) NOT NULL,
 	created_at date NOT NULL,
 	CONSTRAINT pk_tiporisco PRIMARY KEY (idtiporisco)
-);
+);--/////////////criada/////////////
 
 
 -- tiposituacaoprojeto definition
@@ -453,7 +453,7 @@ CREATE TABLE tipo_situacao_projeto (
 	descricao text NULL,
 	status int4 NOT NULL,
 	CONSTRAINT tiposituacaoprojeto_pkey PRIMARY KEY (idtipo)
-);
+);--/////////////criada/////////////
 
 
 -- aceiteatividadecronograma definition
