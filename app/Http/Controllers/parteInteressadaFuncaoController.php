@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\dia_utilModel;
+use App\parteInteressadaFuncaoModel;
 use Illuminate\Http\Request;
 
-class dia_utilController extends Controller
+class parteInteressadaFuncaoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class dia_utilController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\dia_utilModel  $dia_utilModel
+     * @param  \App\parteInteressadaFuncaoModel  $parteInteressadaFuncaoModel
      * @return \Illuminate\Http\Response
      */
-    public function show(dia_utilModel $dia_utilModel)
+    public function show(parteInteressadaFuncaoModel $parteInteressadaFuncaoModel)
     {
         //
     }
@@ -52,10 +52,10 @@ class dia_utilController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\dia_utilModel  $dia_utilModel
+     * @param  \App\parteInteressadaFuncaoModel  $parteInteressadaFuncaoModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(dia_utilModel $dia_utilModel)
+    public function edit(parteInteressadaFuncaoModel $parteInteressadaFuncaoModel)
     {
         //
     }
@@ -64,10 +64,10 @@ class dia_utilController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\dia_utilModel  $dia_utilModel
+     * @param  \App\parteInteressadaFuncaoModel  $parteInteressadaFuncaoModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, dia_utilModel $dia_utilModel)
+    public function update(Request $request, parteInteressadaFuncaoModel $parteInteressadaFuncaoModel)
     {
         //
     }
@@ -75,10 +75,10 @@ class dia_utilController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\dia_utilModel  $dia_utilModel
+     * @param  \App\parteInteressadaFuncaoModel  $parteInteressadaFuncaoModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(dia_utilModel $dia_utilModel)
+    public function destroy(parteInteressadaFuncaoModel $parteInteressadaFuncaoModel)
     {
         //
     }

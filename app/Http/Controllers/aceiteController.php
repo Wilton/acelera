@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\aceiteModel;
+use App\aceiteModel;
 use Illuminate\Http\Request;
 
 class aceiteController extends Controller
@@ -41,7 +41,7 @@ class aceiteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\aceiteModel  $aceiteModel
+     * @param  \App\aceiteModel  $aceiteModel
      * @return \Illuminate\Http\Response
      */
     public function show(aceiteModel $aceiteModel)
@@ -52,7 +52,7 @@ class aceiteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\aceiteModel  $aceiteModel
+     * @param  \App\aceiteModel  $aceiteModel
      * @return \Illuminate\Http\Response
      */
     public function edit(aceiteModel $aceiteModel)
@@ -64,7 +64,7 @@ class aceiteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\aceiteModel  $aceiteModel
+     * @param  \App\aceiteModel  $aceiteModel
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, aceiteModel $aceiteModel)
@@ -75,7 +75,7 @@ class aceiteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\aceiteModel  $aceiteModel
+     * @param  \App\aceiteModel  $aceiteModel
      * @return \Illuminate\Http\Response
      */
     public function destroy(aceiteModel $aceiteModel)

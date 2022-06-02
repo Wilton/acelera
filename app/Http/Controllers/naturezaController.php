@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\naturezaModel;
+use App\naturezaModel;
 use Illuminate\Http\Request;
 
 class naturezaController extends Controller
@@ -41,7 +41,7 @@ class naturezaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\naturezaModel  $naturezaModel
+     * @param  \App\naturezaModel  $naturezaModel
      * @return \Illuminate\Http\Response
      */
     public function show(naturezaModel $naturezaModel)
@@ -52,7 +52,7 @@ class naturezaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\naturezaModel  $naturezaModel
+     * @param  \App\naturezaModel  $naturezaModel
      * @return \Illuminate\Http\Response
      */
     public function edit(naturezaModel $naturezaModel)
@@ -64,7 +64,7 @@ class naturezaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\naturezaModel  $naturezaModel
+     * @param  \App\naturezaModel  $naturezaModel
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, naturezaModel $naturezaModel)
@@ -75,7 +75,7 @@ class naturezaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\naturezaModel  $naturezaModel
+     * @param  \App\naturezaModel  $naturezaModel
      * @return \Illuminate\Http\Response
      */
     public function destroy(naturezaModel $naturezaModel)

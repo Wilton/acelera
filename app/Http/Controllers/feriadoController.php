@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\feriadoModel;
+use App\feriadoModel;
 use Illuminate\Http\Request;
 
 class feriadoController extends Controller
@@ -41,7 +41,7 @@ class feriadoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\feriadoModel  $feriadoModel
+     * @param  \App\feriadoModel  $feriadoModel
      * @return \Illuminate\Http\Response
      */
     public function show(feriadoModel $feriadoModel)
@@ -52,7 +52,7 @@ class feriadoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\feriadoModel  $feriadoModel
+     * @param  \App\feriadoModel  $feriadoModel
      * @return \Illuminate\Http\Response
      */
     public function edit(feriadoModel $feriadoModel)
@@ -64,7 +64,7 @@ class feriadoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\feriadoModel  $feriadoModel
+     * @param  \App\feriadoModel  $feriadoModel
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, feriadoModel $feriadoModel)
@@ -75,7 +75,7 @@ class feriadoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\feriadoModel  $feriadoModel
+     * @param  \App\feriadoModel  $feriadoModel
      * @return \Illuminate\Http\Response
      */
     public function destroy(feriadoModel $feriadoModel)
