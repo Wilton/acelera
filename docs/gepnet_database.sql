@@ -23,7 +23,7 @@ CREATE TABLE acordo_entidade_externa ( -- ///////////////////////// no foreign k
 	entidade_externa_id int4 NOT NULL,
 	CONSTRAINT pk_acordoentidadeexterna PRIMARY KEY (id, entidade_externa_id)
 ); 
-
+--/////feito///////
 
 -- ata definition
 
@@ -37,7 +37,7 @@ CREATE TABLE ata ( -- ///////////////////////// no foreign key /////////////////
 	assunto varchar(100) NOT NULL,
 	created_at date NULL,
 	updated_at date NULL
-	local varchar(100) NOT NULL,
+	local  varchar(100) NOT NULL,
 	participante text NOT NULL,
 	ponto_discutido text NOT NULL,
 	decisao text NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE ata ( -- ///////////////////////// no foreign key /////////////////
 	proximo_passo text NOT NULL,
 	hora_reuniao varchar(8) NOT NULL,
 	CONSTRAINT pk_ata PRIMARY KEY (id)
-);
+); --////feita--//////
 
 
 -- bloqueioprojeto definition
@@ -62,7 +62,7 @@ CREATE TABLE bloqueio_projeto ( -- ///////////////////////// no foreign key ////
 	justificativa text NULL,
 	projeto_id int4 NOT NULL,
 	CONSTRAINT pk_bloqueio PRIMARY KEY (idbloqueioprojeto)
-);
+);--//feito////--
 
 
 -- diautil definition
@@ -91,7 +91,7 @@ CREATE TABLE elemento_despesa (
 	nome varchar(100) NULL,
 	seq int4 NULL,
 	CONSTRAINT pk_elementodespesa PRIMARY KEY (idelementodespesa)
-);
+);--//feita/--
 
 
 -- etapa definition
@@ -107,7 +107,7 @@ CREATE TABLE etapa (
 	updated_at date NOT NULL,
 	pgpassinado varchar(1) NULL,
 	CONSTRAINT pk_etapa PRIMARY KEY (idetapa)
-);--/////////////criada/////////////
+);--/////////////feita/////////////
 
 
 -- evento definition
@@ -126,7 +126,7 @@ CREATE TABLE evento (
 	data_fim date NULL,
 	uf varchar(2) NULL,
 	CONSTRAINT pk_evento PRIMARY KEY (idevento)
-);
+);--//feita///--
 
 
 -- feriado definition
@@ -184,7 +184,7 @@ CREATE TABLE licao (
 	CONSTRAINT fk_licao PRIMARY KEY (idlicao)
 );
 
-
+--//feita//--
 
 -- natureza definition
 
@@ -259,9 +259,9 @@ CREATE TABLE programa (
 	simpr_id int4 NULL,
 #	simpreixo_id int4 NULL,
 #	simprareatematica int4 NULL,
-	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
+	CONSTRAINT ckc_flaativo CHECK ((flag_ativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_programa PRIMARY KEY (idprograma)
-);
+);--//criada//--
 
 
 -- r3g definition
@@ -283,16 +283,16 @@ CREATE TABLE r3g (
 	data_prazo_contramedida_atraso date NULL,
 	responsavel varchar(100) NULL,
 	obs text NULL,
-	#domtipo numeric(1) NULL,
-	#domcorprazoprojeto numeric(1) NULL,
-	#domstatuscontramedida numeric(1) NULL,
+	dom_tipo numeric1 NULL,
+	dom_corprazo_projeto numeric(1) NULL,
+	dom_status_contramedida numeric(1) NULL,
 	flag_contramedida_efetiva numeric(1) NULL,
 	CONSTRAINT cc_domcorprazoprojeto CHECK (((domcorprazoprojeto IS NULL) OR (domcorprazoprojeto = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric])))),
 	CONSTRAINT cc_domstatuscontramedida CHECK (((domstatuscontramedida IS NULL) OR (domstatuscontramedida = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric, (5)::numeric, (6)::numeric])))),
 	CONSTRAINT cc_domtipo CHECK (((domtipo IS NULL) OR (domtipo = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric])))),
 	CONSTRAINT cc_flacontramedida CHECK (((flacontramedidaefetiva IS NULL) OR (flacontramedidaefetiva = ANY (ARRAY[(1)::numeric, (2)::numeric])))),
 	CONSTRAINT pk_r3g PRIMARY KEY (idr3g)
-);
+);--/////finalizada////---
 
 
 -- recurso definition
@@ -306,7 +306,7 @@ CREATE TABLE recurso (
 	ds_recurso varchar(50) NOT NULL,
 	descricao varchar(300) NULL,
 	CONSTRAINT pk_recurso PRIMARY KEY (idrecurso)
-);
+);--////feita///---
 
 
 -- resposta definition
@@ -474,7 +474,7 @@ CREATE TABLE aceite_atividade_cronograma (
 	CONSTRAINT cc_aceito CHECK ((aceito = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_aceiteatividadecronograma PRIMARY KEY (idaceiteativcronograma),
 	CONSTRAINT fk_aceiteativcronograma_aceite FOREIGN KEY (idaceite) REFERENCES aceite(idaceite) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//criadao//--
 
 
 -- escritorio definition
@@ -483,28 +483,28 @@ CREATE TABLE aceite_atividade_cronograma (
 
 -- DROP TABLE escritorio;
 
-CREATE TABLE escritorio (
-	id int4 NOT NULL,
-	nome varchar(100) NOT NULL,
-	ativo bpchar(1) NOT NULL,
-	nome varchar(100) NULL,
-	desemail varchar(100) NULL,
-	numfone varchar(16) NULL,
-	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
-	CONSTRAINT pk_escritorio PRIMARY KEY (idescritorio),
-	CONSTRAINT fk_escritorio_escritoriopai FOREIGN KEY (idescritoriope) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
-CREATE UNIQUE INDEX id_escritorio ON escritorio USING btree (nomescritorio2);
+				CREATE TABLE escritorio (
+					id int4 NOT NULL,
+					nome varchar(100) NOT NULL,
+					ativo bpchar(1) NOT NULL,
+					nome varchar(100) NULL,
+					desemail varchar(100) NULL,
+					numfone varchar(16) NULL,
+					CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
+					CONSTRAINT pk_escritorio PRIMARY KEY (idescritorio),
+					CONSTRAINT fk_escritorio_escritoriopai FOREIGN KEY (idescritoriope) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
+				);
+				CREATE UNIQUE INDEX id_escritorio ON escritorio USING btree (nomescritorio2);
 
 
-CREATE TABLE escritorio_responsaveis (
-	id int4 NOT NULL,
-	ativo bpchar(1) NOT NULL,
-	responsavel_id int4 NULL,
-	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
-	CONSTRAINT pk_escritorio PRIMARY KEY (idescritorio),
-	CONSTRAINT fk_escritorio_escritoriopai FOREIGN KEY (idescritoriope) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+				CREATE TABLE escritorio_responsaveis (
+					id int4 NOT NULL,
+					ativo bpchar(1) NOT NULL,
+					responsavel_id int4 NULL,
+					CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
+					CONSTRAINT pk_escritorio PRIMARY KEY (idescritorio),
+					CONSTRAINT fk_escritorio_escritoriopai FOREIGN KEY (idescritoriope) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
+				);
 -- eventoavaliacao definition
 
 -- Drop table
@@ -535,17 +535,17 @@ CREATE TABLE evento_avaliacao (
 	tarefa_complexa int4 NULL,
 	nota_avaliador int4 NULL,
 	media float8 NULL,
-	media_final float8 NULL,
-	total_avaliado int4 NULL,
+	media_final float8 NULL, --refazer 
+	total_avaliado int4 NULL, --refazer
 	tipo_avaliacao_id int4 NULL,
 	CONSTRAINT pk_eventoavaliacao PRIMARY KEY (ideventoavaliacao),
 	CONSTRAINT fk_eventoavaliacao_evento FOREIGN KEY (idevento) REFERENCES evento(idevento) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_eventoavaliacao_tipoavaliacao FOREIGN KEY (idtipoavaliacao) REFERENCES tipoavaliacao(idtipoavaliacao) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 
 
 -- frase definition
-
+	
 -- Drop table
 
 -- DROP TABLE frase;
