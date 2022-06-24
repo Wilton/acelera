@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-
-        Schema::create('permissao', function (Blueprint $table) {
+        Schema::create('secao', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('recurso_id')->unsigned();
             $table->string('descricao',200)->nullable();
-            $table->string('nome', 50)->nullable();
-            $table->boolean('visualizar')->default(false)->nullable();
-            $table->string('tipo',1)->nullable();
-            $table->foreign('recurso_id')->references('id')->on('recurso')->onUpdate('restrict')->onDelete('restrict');
+            $table->boolean('ativa')->default(true);
+            $table->string('tipo_questionario',1);
+            $table->boolean('macro_processo')->default(false);
         });
     }
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissao');
+        Schema::dropIfExists('secao');
     }
 };

@@ -45,7 +45,7 @@ CREATE TABLE ata ( -- ///////////////////////// no foreign key /////////////////
 	proximo_passo text NOT NULL,
 	hora_reuniao varchar(8) NOT NULL,
 	CONSTRAINT pk_ata PRIMARY KEY (id)
-); --////feita--//////
+);
 
 
 -- bloqueioprojeto definition
@@ -62,7 +62,7 @@ CREATE TABLE bloqueio_projeto ( -- ///////////////////////// no foreign key ////
 	justificativa text NULL,
 	projeto_id int4 NOT NULL,
 	CONSTRAINT pk_bloqueio PRIMARY KEY (idbloqueioprojeto)
-);--//feito////--
+);
 
 
 -- diautil definition
@@ -91,7 +91,7 @@ CREATE TABLE elemento_despesa (
 	nome varchar(100) NULL,
 	seq int4 NULL,
 	CONSTRAINT pk_elementodespesa PRIMARY KEY (idelementodespesa)
-);--//feita/--
+);
 
 
 -- etapa definition
@@ -107,7 +107,7 @@ CREATE TABLE etapa (
 	updated_at date NOT NULL,
 	pgpassinado varchar(1) NULL,
 	CONSTRAINT pk_etapa PRIMARY KEY (idetapa)
-);--/////////////feita/////////////
+);--/////////////criada/////////////
 
 
 -- evento definition
@@ -126,7 +126,7 @@ CREATE TABLE evento (
 	data_fim date NULL,
 	uf varchar(2) NULL,
 	CONSTRAINT pk_evento PRIMARY KEY (idevento)
-);--//feita///--
+);
 
 
 -- feriado definition
@@ -184,7 +184,7 @@ CREATE TABLE licao (
 	CONSTRAINT fk_licao PRIMARY KEY (idlicao)
 );
 
---//feita//--
+
 
 -- natureza definition
 
@@ -259,9 +259,9 @@ CREATE TABLE programa (
 	simpr_id int4 NULL,
 #	simpreixo_id int4 NULL,
 #	simprareatematica int4 NULL,
-	CONSTRAINT ckc_flaativo CHECK ((flag_ativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
+	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_programa PRIMARY KEY (idprograma)
-);--//criada//--
+);
 
 
 -- r3g definition
@@ -283,16 +283,16 @@ CREATE TABLE r3g (
 	data_prazo_contramedida_atraso date NULL,
 	responsavel varchar(100) NULL,
 	obs text NULL,
-	dom_tipo numeric1 NULL,
-	dom_corprazo_projeto numeric(1) NULL,
-	dom_status_contramedida numeric(1) NULL,
+	#domtipo numeric(1) NULL,
+	#domcorprazoprojeto numeric(1) NULL,
+	#domstatuscontramedida numeric(1) NULL,
 	flag_contramedida_efetiva numeric(1) NULL,
 	CONSTRAINT cc_domcorprazoprojeto CHECK (((domcorprazoprojeto IS NULL) OR (domcorprazoprojeto = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric])))),
 	CONSTRAINT cc_domstatuscontramedida CHECK (((domstatuscontramedida IS NULL) OR (domstatuscontramedida = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric, (5)::numeric, (6)::numeric])))),
 	CONSTRAINT cc_domtipo CHECK (((domtipo IS NULL) OR (domtipo = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric])))),
 	CONSTRAINT cc_flacontramedida CHECK (((flacontramedidaefetiva IS NULL) OR (flacontramedidaefetiva = ANY (ARRAY[(1)::numeric, (2)::numeric])))),
 	CONSTRAINT pk_r3g PRIMARY KEY (idr3g)
-);--/////finalizada////---
+);
 
 
 -- recurso definition
@@ -306,7 +306,7 @@ CREATE TABLE recurso (
 	ds_recurso varchar(50) NOT NULL,
 	descricao varchar(300) NULL,
 	CONSTRAINT pk_recurso PRIMARY KEY (idrecurso)
-);--////feita///---
+);
 
 
 -- resposta definition
@@ -474,7 +474,7 @@ CREATE TABLE aceite_atividade_cronograma (
 	CONSTRAINT cc_aceito CHECK ((aceito = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_aceiteatividadecronograma PRIMARY KEY (idaceiteativcronograma),
 	CONSTRAINT fk_aceiteativcronograma_aceite FOREIGN KEY (idaceite) REFERENCES aceite(idaceite) ON DELETE RESTRICT ON UPDATE RESTRICT
-);--//criadao//--
+);
 
 
 -- escritorio definition
@@ -483,28 +483,28 @@ CREATE TABLE aceite_atividade_cronograma (
 
 -- DROP TABLE escritorio;
 
-				CREATE TABLE escritorio (
-					id int4 NOT NULL,
-					nome varchar(100) NOT NULL,
-					ativo bpchar(1) NOT NULL,
-					nome varchar(100) NULL,
-					desemail varchar(100) NULL,
-					numfone varchar(16) NULL,
-					CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
-					CONSTRAINT pk_escritorio PRIMARY KEY (idescritorio),
-					CONSTRAINT fk_escritorio_escritoriopai FOREIGN KEY (idescritoriope) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
-				);
-				CREATE UNIQUE INDEX id_escritorio ON escritorio USING btree (nomescritorio2);
+CREATE TABLE escritorio (
+	id int4 NOT NULL,
+	nome varchar(100) NOT NULL,
+	ativo bpchar(1) NOT NULL,
+	nome varchar(100) NULL,
+	desemail varchar(100) NULL,
+	numfone varchar(16) NULL,
+	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
+	CONSTRAINT pk_escritorio PRIMARY KEY (idescritorio),
+	CONSTRAINT fk_escritorio_escritoriopai FOREIGN KEY (idescritoriope) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
+);--//feitao//----
+CREATE UNIQUE INDEX id_escritorio ON escritorio USING btree (nomescritorio2);
 
 
-				CREATE TABLE escritorio_responsaveis (
-					id int4 NOT NULL,
-					ativo bpchar(1) NOT NULL,
-					responsavel_id int4 NULL,
-					CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
-					CONSTRAINT pk_escritorio PRIMARY KEY (idescritorio),
-					CONSTRAINT fk_escritorio_escritoriopai FOREIGN KEY (idescritoriope) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
-				);
+CREATE TABLE escritorio_responsaveis (
+	id int4 NOT NULL,
+	ativo bpchar(1) NOT NULL,
+	responsavel_id int4 NULL,
+	CONSTRAINT ckc_flaativo CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
+	CONSTRAINT pk_escritorio PRIMARY KEY (idescritorio),
+	CONSTRAINT fk_escritorio_escritoriopai FOREIGN KEY (idescritoriope) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
+);--//feita//---
 -- eventoavaliacao definition
 
 -- Drop table
@@ -535,17 +535,16 @@ CREATE TABLE evento_avaliacao (
 	tarefa_complexa int4 NULL,
 	nota_avaliador int4 NULL,
 	media float8 NULL,
-	media_final float8 NULL, --refazer 
-	total_avaliado int4 NULL, --refazer
+	media_final float8 NULL,
+	total_avaliado int4 NULL,
 	tipo_avaliacao_id int4 NULL,
 	CONSTRAINT pk_eventoavaliacao PRIMARY KEY (ideventoavaliacao),
 	CONSTRAINT fk_eventoavaliacao_evento FOREIGN KEY (idevento) REFERENCES evento(idevento) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_eventoavaliacao_tipoavaliacao FOREIGN KEY (idtipoavaliacao) REFERENCES tipoavaliacao(idtipoavaliacao) ON DELETE RESTRICT ON UPDATE RESTRICT
-);--//feita//--
-
+);--///feita///
 
 -- frase definition
-	
+
 -- Drop table
 
 -- DROP TABLE frase;
@@ -560,7 +559,7 @@ CREATE TABLE frase (
 	CONSTRAINT ckc_flaativo_frase CHECK (((flaativo IS NULL) OR ((flaativo)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT pk_frase PRIMARY KEY (idfrase),
 	CONSTRAINT fk_frase_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 
 
 -- frase_pesquisa definition
@@ -579,7 +578,7 @@ CREATE TABLE frase_pesquisa (
 	CONSTRAINT ckc_domtipofrase_frase CHECK (((domtipofrase IS NULL) OR (domtipofrase = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric, (5)::numeric, (6)::numeric, (7)::numeric])))),
 	CONSTRAINT pk_frasepesquisa PRIMARY KEY (idfrasepesquisa),
 	CONSTRAINT fk_frasepesquisa_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 
 
 -- modulo definition
@@ -597,7 +596,7 @@ CREATE TABLE modulo (
 	ativo bpchar(1) NOT NULL,
 	CONSTRAINT pk_modulo PRIMARY KEY (idmodulo),
 	CONSTRAINT fk_modulo_modulopai FOREIGN KEY (idmodulopai) REFERENCES modulo(idmodulo) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 
 
 -- mudanca definition
@@ -622,7 +621,7 @@ CREATE TABLE mudanca (
 	CONSTRAINT ckc_flaaprovada CHECK (((flaaprovada IS NULL) OR ((flaaprovada)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT pk_mudanca PRIMARY KEY (idmudanca),
 	CONSTRAINT fk_mudanca_tipomudanca FOREIGN KEY (idtipomudanca) REFERENCES tipomudanca(idtipomudanca) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//---
 
 
 -- perfilmodulo definition
@@ -637,7 +636,7 @@ CREATE TABLE perfil_modulo (
 	CONSTRAINT pk_perfilmodulo PRIMARY KEY (idperfil, idmodulo),
 	CONSTRAINT fk_perfilmodulo_modulo FOREIGN KEY (idmodulo) REFERENCES modulo(idmodulo) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_perfilmodulo_perfil FOREIGN KEY (idperfil) REFERENCES perfil(idperfil) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//---
 
 
 -- perfilpessoa definition
@@ -656,7 +655,7 @@ CREATE TABLE perfil_pessoa (
 	CONSTRAINT pk_perfilpessoa PRIMARY KEY (idperfilpessoa),
 	CONSTRAINT fk_perfilpessoa_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio),
 	CONSTRAINT fk_pessoaperfil_perfil FOREIGN KEY (idperfil) REFERENCES perfil(idperfil) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 CREATE UNIQUE INDEX id_perfil_pessoa ON perfilpessoa USING btree (idpessoa, idperfil, idescritorio);
 
 
@@ -675,7 +674,7 @@ CREATE TABLE permissao (
 	tipo bpchar(1) NULL,
 	CONSTRAINT pk_permissao PRIMARY KEY (idpermissao),
 	CONSTRAINT fk_recurso_permissao FOREIGN KEY (idrecurso) REFERENCES recurso(idrecurso)
-);
+);--//feita//--
 CREATE UNIQUE INDEX id_recurso ON permissao USING btree (idrecurso, idpermissao);
 
 
@@ -693,10 +692,11 @@ CREATE TABLE permissao_perfil (
 	CONSTRAINT fk_perfil_permissaoperfil FOREIGN KEY (idperfil) REFERENCES perfil(idperfil) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_permissao_permissaoperfil FOREIGN KEY (idpermissao) REFERENCES permissao(idpermissao)
 );
+-- ///////////feita //////////-----------
 CREATE UNIQUE INDEX id_permissaoperfil ON permissaoperfil USING btree (idpermissaoperfil);
 CREATE UNIQUE INDEX idx_permissaoperfil ON permissaoperfil USING btree (idpermissao, idperfil);
 
-
+	
 -- pessoa definition
 
 -- Drop table
@@ -720,7 +720,7 @@ CREATE TABLE pessoa (
 	siape int8 NULL,
 	versaosistema varchar(10) NULL,
 	CONSTRAINT pk_pessoa PRIMARY KEY (idpessoa),
-);
+);--///////feita/////////////-
 CREATE UNIQUE INDEX idx_cpf ON pessoa USING btree (numcpf);
 
 
@@ -742,7 +742,7 @@ CREATE TABLE portfolio (
 	CONSTRAINT pk_portfolio PRIMARY KEY (idportfolio),
 	CONSTRAINT fk_portfolio_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_portfolio_portfoliopai FOREIGN KEY (idportfoliopai) REFERENCES portfolio(idportfolio) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 
 
 -- portifolioprograma definition
@@ -751,14 +751,14 @@ CREATE TABLE portfolio (
 
 -- DROP TABLE portifolioprograma;
 
-CREATE TABLE portifolio_programa (
+CREATE TABLE portfolio_programa (
 	id int4 NOT NULL,
 	programa_id int4 NOT NULL,
 	CONSTRAINT pk_portifolioprograma PRIMARY KEY (idprograma, idportfolio),
 	CONSTRAINT fk_portifolioprograma_portifolio FOREIGN KEY (idportfolio) REFERENCES portfolio(idportfolio) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_portifolioprograma_programa FOREIGN KEY (idprograma) REFERENCES programa(idprograma) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
-
+-- ////feita/////----
 
 -- processo definition
 
@@ -780,7 +780,7 @@ CREATE TABLE processo (
 	updated_at date NULL,
 	CONSTRAINT pk_processo PRIMARY KEY (idprocesso),
 	CONSTRAINT fk_processo_setor FOREIGN KEY (idsetor) REFERENCES setor(idsetor) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feira//--
 
 
 -- projetoprocesso definition
@@ -804,7 +804,7 @@ CREATE TABLE projeto_processo (
 	CONSTRAINT pk_projetoprocesso PRIMARY KEY (idprojetoprocesso),
 	CONSTRAINT fk_projetoprocesso_processo FOREIGN KEY (idprocesso) REFERENCES processo(idprocesso) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
-
+--///feita///---
 
 -- questionario definition
 
@@ -823,8 +823,7 @@ CREATE TABLE questionario (
 	CONSTRAINT ckc_tipoquestionario_quest CHECK (((tipoquestionario IS NULL) OR (tipoquestionario = ANY (ARRAY[(1)::numeric, (2)::numeric])))),
 	CONSTRAINT pk_questionario PRIMARY KEY (idquestionario),
 	CONSTRAINT fk_questionario_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
-
+);--//feita//--
 
 -- questionario_diagnostico definition
 
@@ -840,7 +839,7 @@ CREATE TABLE questionario_diagnostico (
 	created_at date NOT NULL,
 	CONSTRAINT pk_questionario_diagnostico PRIMARY KEY (idquestionariodiagnostico),
 	CONSTRAINT fk_pessoa_questionariodiagnostico FOREIGN KEY (idpescadastrador) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT
-);
+);--//feita//----
 CREATE INDEX fki_pessoa_questionariodiagnostico ON questionario_diagnostico USING btree (idpescadastrador);
 
 
@@ -850,7 +849,7 @@ CREATE INDEX fki_pessoa_questionariodiagnostico ON questionario_diagnostico USIN
 
 -- DROP TABLE questionariofrase;
 
-CREATE TABLE questionariofrase (
+CREATE TABLE questionario_frase (
 	id,
 	frase_id int4 NOT NULL,
 	questionario_id int4 NOT NULL,
@@ -860,7 +859,7 @@ CREATE TABLE questionariofrase (
 	CONSTRAINT pk_questionariofrase PRIMARY KEY (idfrase, idquestionario),
 	CONSTRAINT fk_questionariofrase_frase FOREIGN KEY (idfrase) REFERENCES frase(idfrase) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_questionariofrase_questionario FOREIGN KEY (idquestionario) REFERENCES questionario(idquestionario) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);---//feita//--
 
 
 -- respostafrase definition
@@ -869,14 +868,13 @@ CREATE TABLE questionariofrase (
 
 -- DROP TABLE respostafrase;
 
-CREATE TABLE respostafrase (
+CREATE TABLE resposta_frase (
 	id,
 	frase_id int4 NOT NULL,
 	resposta_id int4 NOT NULL,
 	CONSTRAINT fk_frase_pergunta FOREIGN KEY (idfrase) REFERENCES frase(idfrase) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_pergunta_frase FOREIGN KEY (idresposta) REFERENCES resposta(idresposta) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
-
+);--//feita//--
 
 -- respostafrase_pesquisa definition
 
@@ -891,7 +889,7 @@ CREATE TABLE respostafrase_pesquisa (
 	CONSTRAINT pk_respostafrase_pesquisa PRIMARY KEY (idfrasepesquisa, idrespostapesquisa),
 	CONSTRAINT fk_fraseresultadopesquisa_frase FOREIGN KEY (idfrasepesquisa) REFERENCES frase_pesquisa(idfrasepesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_fraseresultadopesquisa_resultado FOREIGN KEY (idrespostapesquisa) REFERENCES resposta_pesquisa(idrespostapesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 
 
 -- risco definition
@@ -929,7 +927,7 @@ CREATE TABLE risco (
 	CONSTRAINT fk_risco_etapa FOREIGN KEY (idetapa) REFERENCES etapa(idetapa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_risco_origemrisco FOREIGN KEY (idorigemrisco) REFERENCES origemrisco(idorigemrisco) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_risco_tiporisco FOREIGN KEY (idtiporisco) REFERENCES tiporisco(idtiporisco) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);---////feita////---
 
 
 -- secao definition
@@ -946,7 +944,7 @@ CREATE TABLE secao (
 	macro_processo bool NOT NULL DEFAULT false,
 	CONSTRAINT pk_secao PRIMARY KEY (id_secao),
 	CONSTRAINT fk_secao_secaopai FOREIGN KEY (id_secao_pai) REFERENCES secao(id_secao) ON DELETE CASCADE
-);
+);--//feita///--
 
 
 -- tipoacordo definition
@@ -960,7 +958,7 @@ CREATE TABLE tipo_acordo (
 	descricao varchar NULL,
 	created_at date NULL,
 	CONSTRAINT pk_tipoacordo PRIMARY KEY (idtipoacordo),
-);
+);--//feitao//--
 
 
 -- tratamento definition
@@ -975,7 +973,7 @@ CREATE TABLE tratamento (
 	created_at date NOT NULL,
 	tipo_risco_id int4 NULL,
 	CONSTRAINT pk_tratamento PRIMARY KEY (idtratamento),
-);
+); --//feita//--
 
 
 -- acao definition
@@ -994,7 +992,7 @@ CREATE TABLE acao (
 	seq int4 NULL DEFAULT 0,
 	CONSTRAINT pk_acao PRIMARY KEY (idacao),
 	CONSTRAINT fk_acao_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT,
-);
+);--//feaita//--
 
 
 -- acordoespecieinstrumento definition
