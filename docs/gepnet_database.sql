@@ -340,7 +340,6 @@ CREATE TABLE resposta_pesquisa (
 	CONSTRAINT pk_respostapesquisa PRIMARY KEY (idrespostapesquisa)
 );--/////////////criada/////////////
 
-
 -- setor definition
 
 -- Drop table
@@ -352,8 +351,7 @@ CREATE TABLE setor (
 	nome varchar(100) NOT NULL,
 	flag_ativo bpchar(1) NULL DEFAULT 'S'::bpchar,
 	CONSTRAINT pk_setor PRIMARY KEY (idsetor)
-);--/////////////criada/////////////
-
+);--//////////////criada//////////////
 
 -- tipoavaliacao definition
 
@@ -822,7 +820,7 @@ CREATE TABLE questionario (
 	CONSTRAINT cc_disponivel CHECK (((disponivel IS NULL) OR (disponivel = ANY (ARRAY[(0)::numeric, (1)::numeric])))),
 	CONSTRAINT ckc_tipoquestionario_quest CHECK (((tipoquestionario IS NULL) OR (tipoquestionario = ANY (ARRAY[(1)::numeric, (2)::numeric])))),
 	CONSTRAINT pk_questionario PRIMARY KEY (idquestionario),
-	CONSTRAINT fk_questionario_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
+	CONSTRAINT fk_questionario_escritorio FOREIGN KE	Y (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
 );--//feita//--
 
 -- questionario_diagnostico definition
@@ -1007,7 +1005,7 @@ CREATE TABLE acordo_especie_instrumento (
 	flaativo bpchar(1) NOT NULL,
 	CONSTRAINT ckc_flaativo_acord CHECK ((flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_acordoespecieinstrumento PRIMARY KEY (idacordoespecieinstrumento),
-);
+); --//feita//--
 
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1029,7 +1027,8 @@ CREATE TABLE agenda (
 	CONSTRAINT ckc_flaenviaemail_agend CHECK (((flaenviaemail IS NULL) OR (flaenviaemail = ANY (ARRAY[(1)::numeric, (2)::numeric])))),
 	CONSTRAINT pk_agenda PRIMARY KEY (idagenda),
 	CONSTRAINT fk_agenda_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+); --//fetia //--
+
 
 
 -- aquisicao definition
@@ -1050,7 +1049,8 @@ CREATE TABLE aquisicao (   -- ///////////////////////// no foreign key /////////
 	aquisicao_prazo date NULL,
 	quantidade varchar(20) NULL,
 	CONSTRAINT pk_aquisicao PRIMARY KEY (idaquisicao),
-);
+); --///feita///---
+
 
 
 -- atividade definition
@@ -1077,8 +1077,7 @@ CREATE TABLE atividade (
 	CONSTRAINT pk_atividade PRIMARY KEY (idatividade),
 	CONSTRAINT fk_atividade_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_atividade_pesresponsavel FOREIGN KEY (idresponsavel) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
-
+); ---////feita///---
 
 -- contramedida definition
 
@@ -1101,7 +1100,7 @@ CREATE TABLE contramedida (
 	CONSTRAINT cc_flacontramedidaefetiva CHECK (((flacontramedidaefetiva IS NULL) OR (flacontramedidaefetiva = ANY (ARRAY[(1)::numeric, (2)::numeric])))),
 	CONSTRAINT pk_contramedida PRIMARY KEY (idcontramedida),
 	CONSTRAINT fk_contramedida_risco FOREIGN KEY (idrisco) REFERENCES risco(idrisco) ON DELETE CASCADE ON UPDATE RESTRICT
-);
+); --//feita//---
 
 
 -- diagnostico definition
@@ -1121,7 +1120,7 @@ CREATE TABLE diagnostico ( -- ///////////////////////// no foreign key /////////
 	diagnostico serial4 NOT NULL,
 	ano int4 NULL,
 	CONSTRAINT pk_diagnostico PRIMARY KEY (iddiagnostico),
-);
+); --//feita//--
 
 
 -- documento definition
@@ -1143,7 +1142,7 @@ CREATE TABLE documento (
 	CONSTRAINT pk_documento PRIMARY KEY (iddocumento),
 	CONSTRAINT fk_documento_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_documento_tipodocumento FOREIGN KEY (idtipodocumento) REFERENCES tipodocumento(idtipodocumento) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+); --//feita//---
 CREATE UNIQUE INDEX idx_escritorio ON documento USING btree (iddocumento, idescritorio);
 
 
@@ -1157,7 +1156,7 @@ CREATE TABLE entidade_externa (  -- ///////////////////////// no foreign key ///
 	id int4 NOT NULL,
 	nome varchar(100) NOT NULL,
 	CONSTRAINT pk_entidadeexterna PRIMARY KEY (identidadeexterna),
-);
+); --//feita//--
 
 
 -- item_secao definition
@@ -1166,7 +1165,7 @@ CREATE TABLE entidade_externa (  -- ///////////////////////// no foreign key ///
 
 -- DROP TABLE item_secao;
 
-CREATE TABLE item_secao ( 
+CREATE TABLE entidade_externa ( 
 	id int4 NOT NULL,
 	descricao varchar(200) NOT NULL,
 	secao_id int4 NOT NULL,

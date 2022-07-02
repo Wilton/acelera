@@ -1,3 +1,4 @@
-#refazer tabela secao na linha 939;
+#refazer tabela secao na linha 1048 int8;
+#refazer tabela secao na linha 1120 serial4;
+#refazer tabela secao na linha 1168 tabela repetida;
 
-#ultima linha 677;
