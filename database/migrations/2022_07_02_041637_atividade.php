@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('atividade',100)->nullable();
             $table->text('descricao')->nullable();
-            $table->bigInteger('responsavel_id')->unsigned();
             $table->date('alizacao')->nullable();
             $table->date('inicio')->nullable();
             $table->date('meta')->nullable();
@@ -25,9 +24,8 @@ return new class extends Migration
             $table->tinyInteger('continua')->nullable();
             $table->integer('percentual_concluido')->nullable();
             $table->tinyInteger('cancelada');
-            $table->bigInteger('escritorio_id')->unsigned();
-            $table->foreign('escritorio_id')->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('responsavel_id')->references('id')->on('pessoa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('escritorio_id')->constrained()->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('responsavel_id')->constrained()->references('id')->on('pessoa')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

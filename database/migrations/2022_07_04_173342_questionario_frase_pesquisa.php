@@ -15,12 +15,10 @@ return new class extends Migration
     {
         Schema::create('questionario_frase_pesquisa', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('questionario_pesquisa_id')->unsigned();
-            $table->bigInteger('frase_pesquisa_id')->unsigned();
             $table->integer('ordem');
             $table->string('obrigatoriedade',1)->default('N');
-            $table->foreign('frase_pesquisa_id')->references('id')->on('frase_pesquisa')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('questionario_pesquisa_id')->references('id')->on('questionario_pesquisa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('frase_pesquisa_id')->constrained()->references('id')->on('frase_pesquisa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('questionario_pesquisa_id')->constrained()->references('id')->on('questionario_pesquisa')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

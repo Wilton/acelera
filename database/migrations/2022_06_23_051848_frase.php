@@ -18,9 +18,8 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('tipo')->nullable();
             $table->string('ativo',1)->nullable();
-            $table->bigInteger('escritorio_id')->unsigned();
             $table->string('descricao', 255)->nullable();
-            $table->foreign('escritorio_id')->references('id')->on('escritorio')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('escritorio_id')->constrained()->references('id')->on('escritorio')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 

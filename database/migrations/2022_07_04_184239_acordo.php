@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('status_report', function (Blueprint $table) {
+        Schema::create('acordo', function (Blueprint $table) {
             $table->id();
-            $table->integer('acordo_pai_id')->nullable();
-            $table->integer('tipoa_cordo_id')->nullable();
             $table->string('nome',100)->nullable();
-            $table->integer('responsavel_interno_id');
             $table->string('telefone_responsavel_interno',30)->nullable();
-            $table->integer('setor_id');
-            $table->integer('fiscal_id');
             $table->string('telefone_fiscal',30)->nullable();
             $table->string('palavra_chave',100)->nullable();
             $table->text('objeto')->nullable();
@@ -34,10 +29,22 @@ return new class extends Migration
             $table->string('flag_rescindido',1)->nullable()->default('n');
             $table->tinyInteger('flag_situacao_atual')->nullable();
             $table->string('siapro',25)->nullable();
-            $table->text('contato_externo',10)->nullable();
-            $table->integer('criterio_farol')->nullable();
-            $table->date('fim_projeto')->nullable();
-            $table->foreign('projeto_id')->references('id')->on('projeto')->onDelete('restrict')->onUpdate('restrict');
+            $table->text('contato_externo')->nullable();
+            $table->date('publicacao')->nullable();
+            $table->string('cargo_fiscal',100)->nullable();
+            $table->string('caminho',100)->nullable();
+            $table->foreignId('acordo_especie_instrumento_id')->constrained()->references('id')->on('acordo_especie_instrumento')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('acordo_pai_id')->constrained()->references('id')->on('acordo')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('fiscal_id')->constrained()->references('id')->on('pessoa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('fiscal_2_id')->constrained()->references('id')->on('pessoa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('fiscal_3_id')->constrained()->references('id')->on('pessoa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('responsavel_interno_id')->constrained()->references('id')->on('pessoa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('setor_id')->constrained()->references('id')->on('setor')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('tipo_acordo_id')->constrained()->references('id')->on('tipo_acordo')->onDelete('restrict')->onUpdate('restrict');
+
+
+
+
         });
     }
 
@@ -48,6 +55,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status_report');
+        Schema::dropIfExists('acordo');
     }
 };

@@ -21,8 +21,7 @@ return new class extends Migration
             $table->timestamp('hora_agendada')->nullable();
             $table->string('local',30)->nullable();
             $table->tinyInteger('email')->nullable();
-            $table->bigInteger('escritorio_id')->unsigned();
-            $table->foreign('escritorio_id')->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('escritorio_id')->constrained()->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

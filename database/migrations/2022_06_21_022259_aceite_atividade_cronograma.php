@@ -18,12 +18,11 @@ return new class extends Migration
             $table->id();
             $table->integer('entrega_id');
             $table->integer('projeto_id');
-            $table->bigInteger('aceite_id')->unsigned();
             $table->integer('marco_id');
             $table->string('aceito',1);
             $table->integer('pessoa_id')->nullable();
             $table->date('created_at')->nullable();
-            $table->foreign('aceite_id')->references('id')->on('aceite')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignid('aceite_id')->constrained()->references('id')->on('aceite')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 

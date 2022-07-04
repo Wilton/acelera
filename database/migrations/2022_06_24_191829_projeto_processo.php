@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('projeto_processo', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('processo_id')->unsigned();
             $table->tinyInteger('ano')->nullable();
             $table->tinyInteger('situacao')->nullable();
             $table->date('data_situacao')->nullable();
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->date('data_inicio_previsto')->nullable();
             $table->date('data_termino_previsto')->nullable();
             $table->integer('valor_orcamento');
-            $table->foreign('processo_id')->references('id')->on('processo')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('processo_id')->constrained()->references('id')->on('processo')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

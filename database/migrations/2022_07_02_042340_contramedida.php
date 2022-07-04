@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('contramedida', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('risco_id')->unsigned();
             $table->text('descricao')->nullable();
             $table->date('contramedida_prazo')->nullable();
             $table->date('contramedida_prazo_atraso')->nullable();
@@ -24,7 +23,7 @@ return new class extends Migration
             $table->string('responsavel_descricao',100)->nullable();
             $table->integer('contramedida_tipo_id');
             $table->string('nome',100)->nullable();
-            $table->foreign('risco_id')->references('id')->on('risco')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('risco_id')->constrained()->references('id')->on('risco')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

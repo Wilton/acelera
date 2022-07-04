@@ -1146,22 +1146,6 @@ CREATE TABLE documento (
 CREATE UNIQUE INDEX idx_escritorio ON documento USING btree (iddocumento, idescritorio);
 
 
--- entidadeexterna definition
-
--- Drop table
-
--- DROP TABLE entidade_externa;
-
-CREATE TABLE entidade_externa (  -- ///////////////////////// no foreign key ///////////////////////// -- 
-	id int4 NOT NULL,
-	nome varchar(100) NOT NULL,
-	CONSTRAINT pk_entidadeexterna PRIMARY KEY (identidadeexterna),
-); --//feita//--
-
-
--- item_secao definition
-
--- Drop table
 
 -- DROP TABLE item_secao;
 
@@ -1631,7 +1615,7 @@ CREATE TABLE acordo (
 	CONSTRAINT ckc_flarescindido_acord CHECK (((flarescindido IS NULL) OR (flarescindido = ANY (ARRAY['S'::bpchar, 'N'::bpchar])))),
 	CONSTRAINT ckc_flasituacaoatual_acord CHECK (((flasituacaoatual IS NULL) OR (flasituacaoatual = ANY (ARRAY[(1)::numeric, (2)::numeric, (3)::numeric, (4)::numeric])))),
 	CONSTRAINT pk_acordo PRIMARY KEY (idacordo),
-	CONSTRAINT fk_acordo_acordoespecieinstrumento FOREIGN KEY (idacordoespecieinstrumento) REFERENCES acordoespecieinstrumento(idacordoespecieinstrumento) ON DELETE RESTRICT ON UPDATE RESTRICT,
+	CONSTRAINT fk_acordo_acordoespecieinstrumento FOREIGN KEY (idacodrdoespecieinstrumento) REFERENCES acordoespecieinstrumento(idacordoespecieinstrumento) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_acordo_acordopai FOREIGN KEY (idacordopai) REFERENCES acordo(idacordo) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_acordo_pesfiscal FOREIGN KEY (idfiscal) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_acordo_pesfiscal2 FOREIGN KEY (idfiscal2) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -1639,7 +1623,7 @@ CREATE TABLE acordo (
 	CONSTRAINT fk_acordo_pesresponsavelinterino FOREIGN KEY (idresponsavelinterno) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_acordo_setor FOREIGN KEY (idsetor) REFERENCES setor(idsetor) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_acordo_tipoacordo FOREIGN KEY (idtipoacordo) REFERENCES tipoacordo(idtipoacordo) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--///feita//--
 
 
 -- assinadocumento definition
@@ -1662,7 +1646,7 @@ CREATE TABLE assina_documento (
 	CONSTRAINT fk_assinadocumento_pessoa FOREIGN KEY (idpessoa) REFERENCES pessoa(idpessoa) ON DELETE CASCADE,
 	CONSTRAINT fk_assinadocumento_projeto FOREIGN KEY (idprojeto) REFERENCES projeto(idprojeto) ON DELETE CASCADE,
 	CONSTRAINT fk_assinadocumento_termoaceite FOREIGN KEY (idaceite) REFERENCES aceite(idaceite) ON DELETE RESTRICT
-);
+);--//feita//--
 
 
 -- diariobordo definition
@@ -1683,7 +1667,7 @@ CREATE TABLE diario_bordo (
 	CONSTRAINT pk_diariobordo PRIMARY KEY (iddiariobordo),
 	CONSTRAINT fk_alterador_diariobordo FOREIGN KEY (idalterador) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_diariobordo_projeto FOREIGN KEY (idprojeto) REFERENCES projeto(idprojeto) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feira//--
 
 
 -- hst_publicacao definition
@@ -1699,7 +1683,7 @@ CREATE TABLE historico_publicacao (
 	encerramento timestamp NULL,
 	CONSTRAINT pk_hstpublicacao PRIMARY KEY (idhistoricopublicacao),
 	CONSTRAINT fk_historicopesquisa_pesquisa FOREIGN KEY (idpesquisa) REFERENCES pesquisa(idpesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);---//feita///----
 
 
 -- linhatempo definition
@@ -1720,7 +1704,7 @@ CREATE TABLE linha_tempo (
 	CONSTRAINT fk_linhatempo_pessoa FOREIGN KEY (idpessoa) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT,
 	CONSTRAINT fk_linhatempo_projeto FOREIGN KEY (idprojeto) REFERENCES projeto(idprojeto) ON DELETE RESTRICT,
 	CONSTRAINT fk_linhatempo_recurso FOREIGN KEY (idrecurso) REFERENCES recurso(idrecurso)
-);
+);--//feita	//---
 
 
 -- opcao_resposta definition

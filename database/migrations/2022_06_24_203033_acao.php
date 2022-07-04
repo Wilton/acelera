@@ -19,10 +19,9 @@ return new class extends Migration
             $table->string('nome',100);
             $table->string('ativo',1)->default('s');
             $table->text('descricao')->nullable();
-            $table->bigInteger('escritorio_id')->default(0)->unsigned();
             $table->date('created_at');
             $table->integer('tipo_risco_id');
-            $table->foreign('escritorio_id')->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('escritorio_id')->constrained()->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

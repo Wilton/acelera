@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('unidade_vinculada', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('unidade_principal_id')->unsigned();
-            $table->bigInteger('diagnostico_id')->unsigned();
-            $table->foreign('diagnostico_id')->references('id')->on('diagnostico')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('diagnostico_id')->constrained()->references('id')->on('diagnostico')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

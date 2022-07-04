@@ -16,10 +16,8 @@ return new class extends Migration
 
         Schema::create('perfil_modulo', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('perfil_id')->unsigned();
-            $table->bigInteger('modulo_id')->unsigned();
-            $table->foreign('perfil_id')->references('id')->on('perfil')->onUpdate('restrict')->onDelete('restrict');
-            $table->foreign('modulo_id')->references('id')->on('modulo')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('perfil_id')->constrained()->references('id')->on('perfil')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('modulo_id')->constrained()->references('id')->on('modulo')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 

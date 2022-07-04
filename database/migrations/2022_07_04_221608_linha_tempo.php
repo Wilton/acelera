@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('permissao_diagnostico', function (Blueprint $table) {
+        Schema::create('linha_tempo', function (Blueprint $table) {
             $table->id();
-            $table->date('data');
-            $table->string('ativo',1)->default('S');
-            $table->foreignId('diagnostico_id')->constrained()->references('id')->on('diagnostico')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('parte_diagnostico_id')->constrained()->references('id')->on('parte_diagnostico')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('permissao_id')->constrained()->references('id')->on('permissao')->onDelete('restrict')->onUpdate('restrict');
+            $table->string('funcao_projeto',300);
+            $table->string('tp_acao',1);
+            $table->timestamp('dt_acao');
             $table->foreignId('pessoa_id')->constrained()->references('id')->on('pessoa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('projeto_id')->constrained()->references('id')->on('projeto')->onDelete('restrict')->onUpdate('restrict');
             $table->foreignId('recurso_id')->constrained()->references('id')->on('recurso')->onDelete('restrict')->onUpdate('restrict');
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissao_diagnostico');
+        Schema::dropIfExists('linha_tempo');
     }
 };

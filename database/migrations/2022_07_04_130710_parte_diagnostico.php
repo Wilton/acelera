@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('parte_diagnostico', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('diagnostico_id')->unsigned();
             $table->string('qualificacao',1)->nullable()->default('1');
             $table->string('tp_permissao',1)->nullable()->default('1');
             $table->integer('pessoa_id');
-            $table->foreign('diagnostico_id')->references('id')->on('diagnostico')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('diagnostico_id')->constrained()->references('id')->on('diagnostico')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

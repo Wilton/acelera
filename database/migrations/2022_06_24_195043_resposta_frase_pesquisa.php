@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('respostafrase_pesquisa', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('frase_pesquisa_id')->unsigned();
-            $table->bigInteger('resposta_pesquisa_id')->unsigned();
-            $table->foreign('frase_pesquisa_id')->references('id')->on('frase_pesquisa')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('resposta_pesquisa_id')->references('id')->on('resposta_pesquisa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('frase_pesquisa_id')->constrained()->references('id')->on('frase_pesquisa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('resposta_pesquisa_id')->constrained()->references('id')->on('resposta_pesquisa')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

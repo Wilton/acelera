@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('status_report', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('projeto_id')->unsigned();
             $table->date('data_acompanhamento')->nullable();
             $table->text('atividade_concluida')->nullable();
             $table->text('atividade_andamento')->nullable();
@@ -46,7 +45,7 @@ return new class extends Migration
             $table->string('cor_atraso',10)->nullable();
             $table->integer('criterio_farol')->nullable();
             $table->date('fim_projeto')->nullable();
-            $table->foreign('projeto_id')->references('id')->on('projeto')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('projeto_id')->constrained()->references('id')->on('projeto')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

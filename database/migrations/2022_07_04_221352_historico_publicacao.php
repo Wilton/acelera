@@ -11,14 +11,13 @@ return new class extends Migration
      *
      * @return void
      */
-    
     public function up()
     {
-
-        Schema::create('permissao_perfil', function (Blueprint $table) {
+        Schema::create('historico_publicacao', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('perfil_id')->constrained()->references('id')->on('perfil')->onUpdate('restrict')->onDelete('restrict');
-            $table->foreignId('permissao_id')->constrained()->references('id')->on('permissao')->onUpdate('restrict')->onDelete('restrict');
+            $table->timestamp('publicacao')->nullable();
+            $table->timestamp('encerramento')->nullable();
+            $table->foreignId('pesquisa_id')->constrained()->references('id')->on('pesquisa')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissao_perfil');
+        Schema::dropIfExists('historico_publicacao');
     }
 };

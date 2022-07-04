@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('nome',100);
             $table->string('ativo',1)->nullable()->default('s');
             $table->text('descricao')->nullable();
-            $table->bigInteger('codigo_escritorio')->default(0)->unsigned();
             $table->integer('sequencia')->nullable()->default(0);
-            $table->foreign('codigo_escritorio')->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('codigo_escritorio')->constrained()->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

@@ -19,9 +19,8 @@ return new class extends Migration
             $table->timestamp('data_publicacao');
             $table->integer('publicacao_id');
             $table->integer('encerramento_id');
-            $table->bigInteger('questionario_id')->unsigned();
             $table->timestamp('data_encerramento')->nullable();
-            $table->foreign('questionario_id')->references('id')->on('questionario')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('questionario_id')->constrained()->references('id')->on('questionario')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

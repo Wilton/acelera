@@ -16,9 +16,6 @@ return new class extends Migration
         Schema::create('risco', function (Blueprint $table) {
             $table->id();
             $table->Integer('projeto_id');
-            $table->bigInteger('origem_risco_id')->unsigned();
-            $table->bigInteger('etapa_id')->unsigned();
-            $table->bigInteger('tipo_risco_id')->unsigned();
             $table->date('data_deteccao')->nullable();
             $table->text('descricao')->nullable();
             $table->tinyInteger('cor_probabilidade')->nullable();
@@ -31,9 +28,9 @@ return new class extends Migration
             $table->string('nome',50)->nullable();
             $table->tinyInteger('aprovado')->nullable();
             $table->date('data_inatividade')->nullable();
-            $table->foreign('etapa_id')->references('id')->on('etapa')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('origem_risco_id')->references('id')->on('origem_risco')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('tipo_risco_id')->references('id')->on('tipo_risco')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('etapa_id')->constrained()->references('id')->on('etapa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('origem_risco_id')->constrained()->references('id')->on('origem_risco')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('tipo_risco_id')->constrained()->references('id')->on('tipo_risco')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

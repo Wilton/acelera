@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('vincula_questionario', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('questionario_id')->unsigned();
-            $table->bigInteger('diagnostico_id')->unsigned();
             $table->string('disponivel',1)->default(2);
             $table->date('disponibilidade');
             $table->date('encerrramento')->nullable();
-            $table->foreign('diagnostico_id')->references('id')->on('diagnostico')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('questionario_id')->references('id')->on('questionario')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('diagnostico_id')->constrained()->references('id')->on('diagnostico')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('questionario_id')->constrained()->references('id')->on('questionario')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

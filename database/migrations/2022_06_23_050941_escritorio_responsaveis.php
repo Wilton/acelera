@@ -17,8 +17,7 @@ return new class extends Migration
         Schema::create('escritorio_responsaveis', function (Blueprint $table) {
             $table->id();
             $table->string('atibo',1);
-            $table->bigInteger('responsavel_id')->unsigned();
-            $table->foreign('responsavel_id')->references('id')->on('escritorio')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('responsavel_id')->constrained()->references('id')->on('escritorio')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 

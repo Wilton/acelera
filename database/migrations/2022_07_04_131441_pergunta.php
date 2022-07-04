@@ -18,13 +18,11 @@ return new class extends Migration
             $table->string('descricao',300);
             $table->tinyInteger('tipo');
             $table->boolean('ativa')->default(false);
-            $table->bigInteger('questionario_id')->unsigned();
             $table->integer('posicao')->nullable();
-            $table->bigInteger('secao_id')->unsigned();
             $table->tinyInteger('tipo_registro')->nullable();
             $table->string('ds_titulo',200)->nullable();
-            $table->foreign('secao_id')->references('id')->on('secao')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('questionario_id')->references('id')->on('diagnostico')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('secao_id')->constrained()->references('id')->on('secao')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('questionario_id')->constrained()->references('id')->on('diagnostico')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

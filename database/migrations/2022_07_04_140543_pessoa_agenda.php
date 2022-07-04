@@ -15,9 +15,8 @@ return new class extends Migration
     {
         Schema::create('pessoa_agenda', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('agenda_id')->unsigned();
             $table->integer('pessoa_id');
-            $table->foreign('agenda_id')->references('id')->on('agenda')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('agenda_id')->constrained()->references('id')->on('agenda')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

@@ -18,10 +18,8 @@ return new class extends Migration
             $table->string('nome',100);
             $table->string('ativo',1);
             $table->tinyInteger('tipo');
-            $table->bigInteger('responsavel_id')->unsigned();
-            $table->bigInteger('escritorio_id')->unsigned();
-            $table->foreign('escritorio_id')->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('responsavel_id')->references('id')->on('responsavel')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('escritorio_id')->constrained()->references('id')->on('escritorio')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('responsavel_id')->constrained()->references('id')->on('responsavel')->onDelete('restrict')->onUpdate('restrict');
 
         });
     }

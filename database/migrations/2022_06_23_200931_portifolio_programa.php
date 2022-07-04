@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('portfolio_programa', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('portfolio_id')->unsigned();
-            $table->bigInteger('programa_id')->unsigned();
-            $table->foreign('portfolio_id')->references('id')->on('portfolio')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('programa_id')->references('id')->on('programa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('portfolio_id')->constrained()->references('id')->on('portfolio')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('programa_id')->constrained()->references('id')->on('programa')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

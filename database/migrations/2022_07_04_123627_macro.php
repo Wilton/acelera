@@ -21,8 +21,7 @@ return new class extends Migration
             $table->date('planejado')->nullable();
             $table->date('previsto')->nullable();
             $table->date('encerrado')->nullable();
-            $table->bigInteger('responsavel_id')->unsigned()->default(0)->unsigned();
-            $table->foreign('responsavel_id')->references('id')->on('pessoa')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('responsavel_id')->constrained()->references('id')->on('pessoa')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

@@ -15,12 +15,10 @@ return new class extends Migration
     {
         Schema::create('questionario_frase', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('frase_id')->unsigned();
-            $table->bigInteger('questionario_id')->unsigned();
             $table->integer('num_ordem_pergunta');
             $table->string('obrigatoriedade',1);
-            $table->foreign('frase_id')->references('id')->on('frase')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('questionario_id')->references('id')->on('questionario')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('frase_id')->constrained()->references('id')->on('frase')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('questionario_id')->constrained()->references('id')->on('questionario')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

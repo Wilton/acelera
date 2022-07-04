@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('permissao_funcionalidade', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('permissao_id')->unsigned();
-            $table->bigInteger('funcionalidade_id')->unsigned();
             $table->string('principal',1);
             $table->string('publicada',1);
             $table->date('data_publicada');
-            $table->foreign('funcionalidade_id')->references('id')->on('funcionalidade')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('permissao_id')->references('id')->on('permissao')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('funcionalidade_id')->constrained()->references('id')->on('funcionalidade')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('permissao_id')->constrained()->references('id')->on('permissao')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

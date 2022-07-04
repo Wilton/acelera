@@ -15,13 +15,10 @@ return new class extends Migration
     {
         Schema::create('resposta_frase', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('frase_id')->unsigned();
-            $table->bigInteger('resposta_id')->unsigned();
-            $table->foreign('frase_id')->references('id')->on('frase')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreign('resposta_id')->references('id')->on('resposta')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('frase_id')->constrained()->references('id')->on('frase')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('resposta_id')->constrained()->references('id')->on('resposta')->onDelete('restrict')->onUpdate('restrict');
         });
     }
-
     /**
      * Reverse the migrations.
      *

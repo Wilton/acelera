@@ -16,7 +16,6 @@ return new class extends Migration
 
         Schema::create('evento_avaliacao', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('evento_id')->unsigned();
             $table->text('destaque')->nullable();
             $table->text('observacao')->nullable();
             $table->integer('avaliador_id')->nullable();
@@ -40,9 +39,8 @@ return new class extends Migration
             $table->integer('media')->nullable();
             $table->integer('media_final')->nullable();
             $table->integer('total_avaliado')->nullable();
-            $table->bigInteger('tipo_avaliacao_id')->unsigned();
-            $table->foreign('evento_id')->references('id')->on('evento')->onUpdate('restrict')->onDelete('restrict');
-            $table->foreign('tipo_avaliacao_id')->references('id')->on('tipo_avaliacao')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('evento_id')->references('id')->on('evento')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('tipo_avaliacao_id')->constrained()->references('id')->on('tipo_avaliacao')->onUpdate('restrict')->onDelete('restrict');
 
         });
     }

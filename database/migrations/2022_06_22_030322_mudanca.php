@@ -26,10 +26,8 @@ return new class extends Migration
             $table->text('parecere')->nullable();
             $table->text('aprovadores')->nullable();
             $table->text('descricao_aprovadores')->nullable();
-            $table->bigInteger('tipo_mudanca_id')->unsigned();
             $table->string('aprovada', 1)->nullable();
-
-            $table->foreign('tipo_mudanca_id')->references('id')->on('tipo_mudanca')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('tipo_mudanca_id')->constrained()->references('id')->on('tipo_mudanca')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 

@@ -16,12 +16,11 @@ return new class extends Migration
 
         Schema::create('permissao', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('recurso_id')->unsigned();
             $table->string('descricao',200)->nullable();
             $table->string('nome', 50)->nullable();
             $table->boolean('visualizar')->default(false)->nullable();
             $table->string('tipo',1)->nullable();
-            $table->foreign('recurso_id')->references('id')->on('recurso')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreignId('recurso_id')->constrained()->references('id')->on('recurso')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 

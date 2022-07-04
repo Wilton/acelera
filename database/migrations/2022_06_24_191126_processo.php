@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('codigo',20)->nullable();
             $table->string('processo',100)->nullable();
-            $table->bigInteger('setor_id')->unsigned();
             $table->text('descricao')->nullable();
             $table->integer('dono_id');
             $table->integer('executor_id');
@@ -25,7 +24,7 @@ return new class extends Migration
             $table->integer('consultor_id');
             $table->integer('validade')->nullable();
             $table->date('updated_at')->nullable();
-            $table->foreign('setor_id')->references('id')->on('setor')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('setor_id')->constrained()->references('id')->on('setor')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 
