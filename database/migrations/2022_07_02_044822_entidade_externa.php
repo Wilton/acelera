@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('entidade_externa', function (Blueprint $table) {
             $table->id();
-            $table->string('nome',100);
+            $table->string('descricao',200);
+            $table->bigInteger('secao_id')->unsigned();
+            $table->integer('ativo')->default(true);
+            $table->bigInteger('questionario_diagnostico_id')->unsigned();
+            $table->foreign('questionario_diagnostico_id')->references('id')->on('questionario_diagnostico')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreign('secao_id')->references('id')->on('secao')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 

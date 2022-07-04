@@ -1174,7 +1174,7 @@ CREATE TABLE entidade_externa (
 	CONSTRAINT pk_item PRIMARY KEY (id_item),
 	CONSTRAINT fk_idquestionariodiagnostico FOREIGN KEY (idquestionariodiagnostico) REFERENCES questionario_diagnostico(idquestionariodiagnostico) ON DELETE CASCADE,
 	CONSTRAINT fk_item_secao FOREIGN KEY (id_secao) REFERENCES secao(id_secao) ON DELETE CASCADE
-);
+);--//feita//---
 
 
 -- marco definition
@@ -1194,7 +1194,7 @@ CREATE TABLE marco (
 	responsavel_id int4 NULL DEFAULT 0,
 	CONSTRAINT pk_marco PRIMARY KEY (idmarco),
 	CONSTRAINT fk_marco_pesresponsavel FOREIGN KEY (idresponsavel) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);---//feitao//--
 
 
 -- objetivo definition
@@ -1213,7 +1213,7 @@ CREATE TABLE objetivo (
 	CONSTRAINT ckc_flaativo_objet CHECK (((flaativo IS NULL) OR (flaativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar])))),
 	CONSTRAINT pk_objetivo PRIMARY KEY (idobjetivo),
 	CONSTRAINT fk_objetivo_escritorio FOREIGN KEY (codescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT,
-);
+);--//feira//--
 
 
 -- p_acao definition
@@ -1239,7 +1239,7 @@ CREATE TABLE p_acao (
 	CONSTRAINT pk_p_acao PRIMARY KEY (id_p_acao),
 	CONSTRAINT fk_acao_projetoprocesso FOREIGN KEY (idprojetoprocesso) REFERENCES projetoprocesso(idprojetoprocesso) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_acao_setorresponsavel FOREIGN KEY (idsetorresponsavel) REFERENCES setor(idsetor) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 
 
 -- partediagnostico definition
@@ -1253,10 +1253,10 @@ CREATE TABLE parte_diagnostico (
 	diagnostico_id int4 NOT NULL,
 	qualificacao varchar(1) NULL DEFAULT '1'::character varying,
 	pessoa_id int4 NOT NULL,
-#	tppermissao varchar(1) NULL DEFAULT '1'::character varying,
+	tppermissao varchar(1) NULL DEFAULT '1'::character varying,
 	CONSTRAINT pk_partediagnostico PRIMARY KEY (idpartediagnostico),
 	CONSTRAINT fk_partediagnostico_diagnostico FOREIGN KEY (iddiagnostico) REFERENCES diagnostico(iddiagnostico) ON DELETE CASCADE
-);
+);--//fetia//--
 
 
 -- pergunta definition
@@ -1272,13 +1272,13 @@ CREATE TABLE pergunta (
 	ativa bool NOT NULL DEFAULT false,
 	questionario_id int8 NOT NULL,
 	posicao int4 NULL,
-	secao_id int8 NOT NULL,
+		 int8 NOT NULL,
 	tipo_registro numeric(1) NULL,
-#	dstitulo varchar(200) NULL,
+	dstitulo varchar(200) NULL,
 	CONSTRAINT pk_pergunta PRIMARY KEY (idpergunta),
 	CONSTRAINT fk_pergunta_secao FOREIGN KEY (id_secao) REFERENCES secao(id_secao) ON DELETE RESTRICT,
 	CONSTRAINT fk_questionario_pergunta FOREIGN KEY (idquestionario) REFERENCES questionario_diagnostico(idquestionariodiagnostico) ON DELETE CASCADE
-);
+);--//feita//---
 
 
 -- perm_funcionalidade definition
@@ -1299,7 +1299,7 @@ CREATE TABLE permissao_funcionalidade (
 	CONSTRAINT pk_perm_funcionalidade PRIMARY KEY (idpermissao, idfuncionalidade),
 	CONSTRAINT fk_permfuncionalidade_funcionalidade FOREIGN KEY (idfuncionalidade) REFERENCES funcionalidade(idfuncionalidade) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_permfuncionalidade_permissao FOREIGN KEY (idpermissao) REFERENCES permissao(idpermissao)
-);
+);--//feita//--
 
 
 -- permissaodiagnostico definition
@@ -1314,7 +1314,7 @@ CREATE TABLE permissao_diagnostico (
 	diagnostico_id int4 NOT NULL,
 	recurso_id int4 NOT NULL,
 	permissao_id int4 NOT NULL,
-#	pessoa_id int4 NOT NULL,
+	pessoa_id int4 NOT NULL,
 	"data" date NOT NULL,
 	ativo bpchar(1) NOT NULL DEFAULT 'S'::bpchar,
 	CONSTRAINT ckc_ativo_ CHECK (((ativo = ANY (ARRAY['S'::bpchar, 'N'::bpchar])) AND ((ativo)::text = upper((ativo)::text)))),
@@ -1324,7 +1324,7 @@ CREATE TABLE permissao_diagnostico (
 	CONSTRAINT fk_permpdiagnostico_permissao FOREIGN KEY (idpermissao) REFERENCES permissao(idpermissao) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_permpdiagnostico_pesmanipula FOREIGN KEY (idpessoa) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_permpdiagnostico_recurso FOREIGN KEY (idrecurso) REFERENCES recurso(idrecurso) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feira//---
 
 
 -- pesquisa definition
@@ -1344,7 +1344,7 @@ CREATE TABLE pesquisa (
 	CONSTRAINT cc_situacao CHECK ((situacao = ANY (ARRAY[(1)::numeric, (2)::numeric]))),
 	CONSTRAINT pk_pesquisa PRIMARY KEY (idpesquisa),
 	CONSTRAINT fk_pesquisaquestionario_questionario FOREIGN KEY (idquestionario) REFERENCES questionario(idquestionario) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 
 
 -- pessoaagenda definition
@@ -1353,12 +1353,12 @@ CREATE TABLE pesquisa (
 
 -- DROP TABLE pessoa_agenda;
 
-CREATE TABLE pessoaagenda (
+CREATE TABLE pessoa_agenda (
 	agenda_id int4 NOT NULL,
 	pessoa_id int4 NOT NULL,
 	CONSTRAINT pk_pessoaagenda PRIMARY KEY (idagenda, idpessoa),
 	CONSTRAINT fk_pessoaagenda_agenda FOREIGN KEY (idagenda) REFERENCES agenda(idagenda) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--///feita///----
 
 
 -- projeto definition
@@ -1431,6 +1431,7 @@ CREATE TABLE projeto (
 	CONSTRAINT ckc_flapublicado CHECK (((flapublicado IS NULL) OR ((flapublicado)::text = ANY (ARRAY[('S'::character varying)::text, ('N'::character varying)::text])))),
 	CONSTRAINT ckc_statusprojeto CHECK (((domstatusprojeto IS NULL) OR (domstatusprojeto = ANY (ARRAY[1, 2, 3, 4, 5, 6, 7, 8])))),
 	CONSTRAINT pk_projeto PRIMARY KEY (idprojeto),
+
 	CONSTRAINT fk_acao_projeto FOREIGN KEY (idacao) REFERENCES acao(idacao) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_pessoaadjunto FOREIGN KEY (idgerenteadjunto) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_pessoademandante FOREIGN KEY (iddemandante) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -1444,7 +1445,7 @@ CREATE TABLE projeto (
 	CONSTRAINT fk_projeto_programa FOREIGN KEY (idprograma) REFERENCES programa(idprograma) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_projeto_setor FOREIGN KEY (idsetor) REFERENCES setor(idsetor) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_projeto_tipoiniciativa FOREIGN KEY (idtipoiniciativa) REFERENCES tipoiniciativa(idtipoiniciativa) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 CREATE INDEX fki_projeto_tipoiniciativa ON projeto USING btree (idtipoiniciativa);
 
 
@@ -1465,7 +1466,7 @@ CREATE TABLE questionario_pesquisa (
 	CONSTRAINT pk_questionariopesquisa PRIMARY KEY (idquestionariopesquisa),
 	CONSTRAINT fk_questionariopesquisa_escritorio FOREIGN KEY (idescritorio) REFERENCES escritorio(idescritorio) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_questionariopesquisa_pesquisa FOREIGN KEY (idpesquisa) REFERENCES pesquisa(idpesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita
 
 
 -- questionariofrase_pesquisa definition
@@ -1484,7 +1485,7 @@ CREATE TABLE questionario_frase_pesquisa (
 	CONSTRAINT pk_questionariofrase_pesquisa PRIMARY KEY (idquestionariopesquisa, idfrasepesquisa),
 	CONSTRAINT fk_questionariofrasepesquisa_frase FOREIGN KEY (idfrasepesquisa) REFERENCES frase_pesquisa(idfrasepesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_questionariofrasepesquisa_quest FOREIGN KEY (idquestionariopesquisa) REFERENCES questionario_pesquisa(idquestionariopesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feitao//--
 
 
 -- resultado_pesquisa definition
@@ -1503,7 +1504,7 @@ CREATE TABLE resultado_pesquisa (
 	CONSTRAINT pk_resultadopesquisa PRIMARY KEY (id, idresultado, idfrasepesquisa, idquestionariopesquisa),
 	CONSTRAINT fk_frasepesquisa_frase FOREIGN KEY (idfrasepesquisa) REFERENCES frase_pesquisa(idfrasepesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_questionariopesquisa_questionario FOREIGN KEY (idquestionariopesquisa) REFERENCES questionario_pesquisa(idquestionariopesquisa) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+); --feita//--
 
 
 -- statusreport definition
@@ -1554,7 +1555,7 @@ CREATE TABLE status_report (
 )
 WITH (
 	OIDS=TRUE
-);
+);--//feita//--
 
 
 -- unidade_vinculada definition
@@ -1569,7 +1570,7 @@ CREATE TABLE unidade_vinculada (
 	diagnostico_id int8 NOT NULL,
 	CONSTRAINT pk_unidadevinculada PRIMARY KEY (idunidade, id_unidadeprincipal, iddiagnostico),
 	CONSTRAINT fk_unidadevinculada_diagnostico FOREIGN KEY (iddiagnostico) REFERENCES diagnostico(iddiagnostico) ON DELETE CASCADE
-);
+);--//feitao//---
 
 
 -- vincula_questionario definition
@@ -1590,7 +1591,7 @@ CREATE TABLE vincula_questionario (
 	CONSTRAINT fk_pessoa_vinculaquestionario FOREIGN KEY (idpesdisponibiliza) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT,
 	CONSTRAINT fk_pessoaencerra_vinculaquestionario FOREIGN KEY (idpesencerrou) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT,
 	CONSTRAINT fk_questionario_vinculaquestionario FOREIGN KEY (idquestionario) REFERENCES questionario_diagnostico(idquestionariodiagnostico) ON DELETE CASCADE
-);
+);--///feita///---
 
 
 -- acordo definition
