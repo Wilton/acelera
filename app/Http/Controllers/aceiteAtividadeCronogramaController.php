@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\aceiteAtividadeCronograma;
+use App\AceiteAtividadeCronograma;
 use Illuminate\Http\Request;
 
-class aceiteAtividadeCronogramaController extends Controller
+class AceiteAtividadeCronogramaController extends Controller
 {
     /**
      * Display a listing of the resource.

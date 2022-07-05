@@ -3,4 +3,6 @@
 #refazer tabela secao na linha 1277 tabela dstitulo;
 #refazer tabela secao na linha 1582 tabela  CREATE TABLE vincula_questionario (
 ;
+#refazer tabela secao na linha 1818 ,1853 tabela  CREATE TABLE CREATE TABLE questionario_diagnostico_melhoria
+ 
 

@@ -1724,7 +1724,7 @@ CREATE TABLE opcao_resposta (
 	CONSTRAINT pk_opcao_resposta PRIMARY KEY (idresposta),
 	CONSTRAINT fk_pergunta FOREIGN KEY (idpergunta) REFERENCES pergunta(idpergunta) ON DELETE CASCADE ON UPDATE RESTRICT,
 	CONSTRAINT fk_questionario_opcaoresposta FOREIGN KEY (idquestionario) REFERENCES questionario_diagnostico(idquestionariodiagnostico) ON DELETE CASCADE
-);
+);--//feita///---
 
 
 -- parteinteressada definition
@@ -1748,7 +1748,7 @@ CREATE TABLE parte_interessada (
 	CONSTRAINT pk_parteinteressada PRIMARY KEY (idparteinteressada),
 	CONSTRAINT fk_pessoainterna FOREIGN KEY (idpessoainterna) REFERENCES pessoa(idpessoa),
 	CONSTRAINT fk_projeto FOREIGN KEY (idprojeto) REFERENCES projeto(idprojeto) ON DELETE RESTRICT
-);
+);--///feita//--
 
 
 -- parteinteressada_funcoes definition
@@ -1764,7 +1764,7 @@ CREATE TABLE parte_interessada_funcoes (
 	CONSTRAINT pk_parteinteressada_funcoes PRIMARY KEY (idparteinteressada, idparteinteressadafuncao),
 	CONSTRAINT fk_parteinteressada_funcoes_funcao FOREIGN KEY (idparteinteressadafuncao) REFERENCES parteinteressadafuncao(idparteinteressadafuncao),
 	CONSTRAINT fk_parteinteressada_funcoes_parte FOREIGN KEY (idparteinteressada) REFERENCES parteinteressada(idparteinteressada) ON DELETE RESTRICT
-);
+);--//feita//---
 
 
 -- permissaoprojeto definition
@@ -1789,7 +1789,7 @@ CREATE TABLE permissao_projeto (
 	CONSTRAINT fk_permprojeto_pesmanipula FOREIGN KEY (idpessoa) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_permprojeto_projeto FOREIGN KEY (idprojeto) REFERENCES projeto(idprojeto) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_permprojeto_recurso FOREIGN KEY (idrecurso) REFERENCES recurso(idrecurso) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+);--//feita//--
 
 
 -- questionariodiagnostico_respondido definition
@@ -1806,7 +1806,7 @@ CREATE TABLE questionario_diagnostico_respondido (
 	pessoa_resposta_id int4 NOT NULL,
 	CONSTRAINT pk_historico_questionario PRIMARY KEY (idquestionario, iddiagnostico, numero),
 	CONSTRAINT fk_questionariovinculado_questionariorespondido FOREIGN KEY (idquestionario,iddiagnostico) REFERENCES vincula_questionario(idquestionario,iddiagnostico) ON DELETE CASCADE
-);
+);--//feita//---
 
 
 -- questionariodiagnosticomelhoria definition
@@ -1839,7 +1839,7 @@ CREATE TABLE questionario_diagnostico_melhoria (
 	CONSTRAINT fk_processotrabalho_questionariodiagnosticomelhoria FOREIGN KEY (idmacroprocessotrabalho) REFERENCES processo(idprocesso) ON DELETE RESTRICT,
 	CONSTRAINT fk_undiaderesponsavelimplantacao_questionariodiagnosticomelhori FOREIGN KEY (idunidaderesponsavelimplantacao,idunidadeprincipal,iddiagnostico) REFERENCES unidade_vinculada(idunidade,id_unidadeprincipal,iddiagnostico) ON DELETE RESTRICT,
 	CONSTRAINT fk_unidaderesponsavelproposta_questionariodiagnosticomelhoria FOREIGN KEY (idunidaderesponsavelproposta,idunidadeprincipal,iddiagnostico) REFERENCES unidade_vinculada(idunidade,id_unidadeprincipal,iddiagnostico) ON DELETE RESTRICT
-);
+);--//feita//---
 CREATE INDEX fki_acaoestrategica ON questionariodiagnosticomelhoria USING btree (idacaoestrategica);
 CREATE INDEX fki_diagnostico ON questionariodiagnosticomelhoria USING btree (iddiagnostico);
 
@@ -1862,7 +1862,7 @@ CREATE TABLE resposta_pergunta (
 	CONSTRAINT fk_opcaoresposta_resposta_pergunta FOREIGN KEY (idresposta) REFERENCES opcao_resposta(idresposta) ON DELETE CASCADE,
 	CONSTRAINT fk_pergunta_resposta_pergunta FOREIGN KEY (idpergunta) REFERENCES pergunta(idpergunta) ON DELETE CASCADE,
 	CONSTRAINT fk_questionariorespondido_respostapergunta FOREIGN KEY (idquestionario,nrquestionario,iddiagnostico) REFERENCES <?>() ON DELETE CASCADE
-);
+);--//feita//---
 
 
 -- resposta_questionariordiagnostico definition
@@ -1879,7 +1879,7 @@ CREATE TABLE resposta_questionariordiagnostico (
 	CONSTRAINT pk_resposta_questionariorespondido PRIMARY KEY (id_resposta_pergunta, idquestionario, iddiagnostico, numero),
 	CONSTRAINT fk_questionariorespondido_respostaquestionariorespondido FOREIGN KEY (idquestionario,iddiagnostico,numero) REFERENCES questionariodiagnostico_respondido(idquestionario,iddiagnostico,numero) ON DELETE CASCADE,
 	CONSTRAINT fk_respostapergunta_respostaquestionariorespondido FOREIGN KEY (id_resposta_pergunta) REFERENCES resposta_pergunta(id_resposta_pergunta) ON DELETE CASCADE
-);
+);--//feita//--
 
 
 -- atividadecronograma definition
@@ -1921,13 +1921,14 @@ CREATE TABLE atividade_cronograma (
 	CONSTRAINT ckc_flaordenacao CHECK ((flaordenacao = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT ckc_flashowhide CHECK ((flaordenacao = ANY (ARRAY['S'::bpchar, 'N'::bpchar]))),
 	CONSTRAINT pk_atividadecronograma PRIMARY KEY (idatividadecronograma, idprojeto),
+	
 	CONSTRAINT fk_atividadecrono_elementodespesa FOREIGN KEY (idelementodespesa) REFERENCES elementodespesa(idelementodespesa) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT fk_atividadecrono_marcoanterior FOREIGN KEY (idmarcoanterior,idprojeto) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_atividadecrono_projeto FOREIGN KEY (idprojeto) REFERENCES projeto(idprojeto) ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_grupo_atividade FOREIGN KEY (idgrupo,idprojeto) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE CASCADE ON UPDATE RESTRICT,
 	CONSTRAINT fk_responsavelaceitacao_atividadecronograma FOREIGN KEY (idresponsavel) REFERENCES parteinteressada(idparteinteressada) ON DELETE SET NULL,
 	CONSTRAINT fk_responsavelentrega_atividadecronograma FOREIGN KEY (idparteinteressada) REFERENCES parteinteressada(idparteinteressada) ON DELETE SET NULL
-);
+);--////feita//----
 CREATE INDEX idx_codprojeto_domtipoatividade ON atividadecronograma USING btree (idprojeto, domtipoatividade);
 CREATE INDEX idx_grupo ON atividadecronograma USING btree (idprojeto, idgrupo);
 
@@ -1944,7 +1945,7 @@ CREATE TABLE atividade_cronograma_predecessora (
 	CONSTRAINT pk_atividadecronopredecessora PRIMARY KEY (idatividadecronograma, idprojetocronograma, idatividadepredecessora),
 	CONSTRAINT fk_cronpredecessora_cronograma FOREIGN KEY (idatividadecronograma,idprojetocronograma) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE CASCADE,
 	CONSTRAINT fk_cronpredecessora_predecessora FOREIGN KEY (idatividadepredecessora,idprojetocronograma) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE CASCADE
-);
+);--//feita//--
 
 
 -- atividadeocultar definition
@@ -1961,7 +1962,7 @@ CREATE TABLE atividade_ocultar (
 	data_cadastro date NULL DEFAULT 'now'::text::date,
 	CONSTRAINT fk_atividade_projeto_visibilidade FOREIGN KEY (idprojeto,idatividadecronograma) REFERENCES <?>() ON DELETE RESTRICT ON UPDATE RESTRICT,
 	CONSTRAINT fk_pessoa_ocultar FOREIGN KEY (idpessoa) REFERENCES pessoa(idpessoa) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
+); --//feita//==
 CREATE INDEX idx_atividade_projeto_pessoa ON atividadeocultar USING btree (idatividadecronograma, idprojeto, idpessoa);
 
 
@@ -1982,7 +1983,7 @@ CREATE TABLE comentario (
 	CONSTRAINT fk_comentario_atividadecronograma FOREIGN KEY (idatividadecronograma,idprojeto) REFERENCES atividadecronograma(idatividadecronograma,idprojeto) ON DELETE CASCADE,
 	CONSTRAINT fk_comentario_pessoa FOREIGN KEY (idpessoa) REFERENCES pessoa(idpessoa) ON DELETE CASCADE,
 	CONSTRAINT fk_comentario_projeto FOREIGN KEY (idprojeto) REFERENCES projeto(idprojeto) ON DELETE CASCADE
-);
+);--//feita//--
 CREATE INDEX fki_comentario_pessoa ON comentario USING btree (idpessoa);
 
 

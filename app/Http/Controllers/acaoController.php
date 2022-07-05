@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\acao;
+use App\Acao;
 use Illuminate\Http\Request;
 
-class acaoController extends Controller
+class AcaoController extends Controller
 {
     /**
      * Display a listing of the resource.

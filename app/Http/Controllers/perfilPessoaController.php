@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\perfilPessoa;
+use App\PerfilPessoa;
 use Illuminate\Http\Request;
 
-class perfilPessoaController extends Controller
+class PerfilPessoaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class perfilPessoaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\perfilPessoa  $perfilPessoa
+     * @param  \App\PerfilPessoa  $perfilPessoa
      * @return \Illuminate\Http\Response
      */
-    public function show(perfilPessoa $perfilPessoa)
+    public function show(PerfilPessoa $perfilPessoa)
     {
         //
     }
@@ -52,10 +52,10 @@ class perfilPessoaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\perfilPessoa  $perfilPessoa
+     * @param  \App\PerfilPessoa  $perfilPessoa
      * @return \Illuminate\Http\Response
      */
-    public function edit(perfilPessoa $perfilPessoa)
+    public function edit(PerfilPessoa $perfilPessoa)
     {
         //
     }
@@ -64,10 +64,10 @@ class perfilPessoaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\perfilPessoa  $perfilPessoa
+     * @param  \App\PerfilPessoa  $perfilPessoa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, perfilPessoa $perfilPessoa)
+    public function update(Request $request, PerfilPessoa $perfilPessoa)
     {
         //
     }
@@ -75,10 +75,10 @@ class perfilPessoaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\perfilPessoa  $perfilPessoa
+     * @param  \App\PerfilPessoa  $perfilPessoa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(perfilPessoa $perfilPessoa)
+    public function destroy(PerfilPessoa $perfilPessoa)
     {
         //
     }
