@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Aceite;
+use App\Models\Aceite;
 use Illuminate\Http\Request;
 
 class AceiteController extends Controller

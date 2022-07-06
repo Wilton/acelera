@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\permissao;
+use App\Permissao;
 use Illuminate\Http\Request;
 
 class permissaoController extends Controller
@@ -52,10 +52,10 @@ class permissaoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\permissao  $permissao
+     * @param  \App\Permissao  $permissao
      * @return \Illuminate\Http\Response
      */
-    public function edit(permissao $permissao)
+    public function edit(Permissao $permissao)
     {
         //
     }
@@ -75,10 +75,10 @@ class permissaoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\permissao  $permissao
+     * @param  \App\Permissao  $permissao
      * @return \Illuminate\Http\Response
      */
-    public function destroy(permissao $permissao)
+    public function destroy(Permissao $permissao)
     {
         //
     }

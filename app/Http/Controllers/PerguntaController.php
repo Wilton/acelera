@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Pergunta;
 use Illuminate\Http\Request;
 
-class pergunta extends Controller
+class PerguntaController extends Controller
 {
     /**
      * Display a listing of the resource.

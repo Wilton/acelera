@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\pessoAagenda;
+use App\PessoaAgenda;
 use Illuminate\Http\Request;
 
-class pessoaAgenda extends Controller
+class PessoaAgendaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class pessoaAgenda extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\pessoAagenda  $pessoAagenda
+     * @param  \App\PessoaAgenda  $pessoaAgenda
      * @return \Illuminate\Http\Response
      */
-    public function show(pessoAagenda $pessoAagenda)
+    public function show(PessoaAgenda $pessoaAgenda)
     {
         //
     }
@@ -52,10 +52,10 @@ class pessoaAgenda extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\pessoAagenda  $pessoAagenda
+     * @param  \App\PessoaAgenda  $pessoaAgenda
      * @return \Illuminate\Http\Response
      */
-    public function edit(pessoAagenda $pessoAagenda)
+    public function edit(PessoaAgenda $pessoaAgenda)
     {
         //
     }
@@ -64,10 +64,10 @@ class pessoaAgenda extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\pessoAagenda  $pessoAagenda
+     * @param  \App\PessoaAgenda  $pessoaAgenda
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pessoAagenda $pessoAagenda)
+    public function update(Request $request, PessoaAgenda $pessoaAgenda)
     {
         //
     }
@@ -75,10 +75,10 @@ class pessoaAgenda extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\pessoAagenda  $pessoAagenda
+     * @param  \App\PessoaAgenda  $pessoaAgenda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pessoAagenda $pessoAagenda)
+    public function destroy(PessoaAgenda $pessoaAgenda)
     {
         //
     }

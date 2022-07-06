@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\permissaoDiagnostico;
+use App\PermissaoDiagnostico;
 use Illuminate\Http\Request;
 
-class permissaoDiagnostico extends Controller
+class PermissaoDiagnosticoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class permissaoDiagnostico extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\permissaoDiagnostico  $permissaoDiagnostico
+     * @param  \App\PermissaoDiagnostico  $permissaoDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function show(permissaoDiagnostico $permissaoDiagnostico)
+    public function show(PermissaoDiagnostico $permissaoDiagnostico)
     {
         //
     }
@@ -52,10 +52,10 @@ class permissaoDiagnostico extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\permissaoDiagnostico  $permissaoDiagnostico
+     * @param  \App\PermissaoDiagnostico  $permissaoDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function edit(permissaoDiagnostico $permissaoDiagnostico)
+    public function edit(PermissaoDiagnostico $permissaoDiagnostico)
     {
         //
     }
@@ -64,10 +64,10 @@ class permissaoDiagnostico extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\permissaoDiagnostico  $permissaoDiagnostico
+     * @param  \App\PermissaoDiagnostico  $permissaoDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, permissaoDiagnostico $permissaoDiagnostico)
+    public function update(Request $request, PermissaoDiagnostico $permissaoDiagnostico)
     {
         //
     }
@@ -75,10 +75,10 @@ class permissaoDiagnostico extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\permissaoDiagnostico  $permissaoDiagnostico
+     * @param  \App\PermissaoDiagnostico  $permissaoDiagnostico
      * @return \Illuminate\Http\Response
      */
-    public function destroy(permissaoDiagnostico $permissaoDiagnostico)
+    public function destroy(PermissaoDiagnostico $permissaoDiagnostico)
     {
         //
     }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\pesquisa;
+use App\Pesquisa;
 use Illuminate\Http\Request;
 
-class pesquisa extends Controller
+class PesquisaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class pesquisa extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\pesquisa  $pesquisa
+     * @param  \App\Pesquisa  $pesquisa
      * @return \Illuminate\Http\Response
      */
-    public function show(pesquisa $pesquisa)
+    public function show(Pesquisa $pesquisa)
     {
         //
     }
@@ -52,10 +52,10 @@ class pesquisa extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\pesquisa  $pesquisa
+     * @param  \App\Pesquisa  $pesquisa
      * @return \Illuminate\Http\Response
      */
-    public function edit(pesquisa $pesquisa)
+    public function edit(Pesquisa $pesquisa)
     {
         //
     }
@@ -64,10 +64,10 @@ class pesquisa extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\pesquisa  $pesquisa
+     * @param  \App\Pesquisa  $pesquisa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pesquisa $pesquisa)
+    public function update(Request $request, Pesquisa $pesquisa)
     {
         //
     }
@@ -75,10 +75,10 @@ class pesquisa extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\pesquisa  $pesquisa
+     * @param  \App\Pesquisa  $pesquisa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pesquisa $pesquisa)
+    public function destroy(Pesquisa $pesquisa)
     {
         //
     }

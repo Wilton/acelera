@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\permissaoFuncionalidade;
+use App\PermissaoFuncionalidade;
 use Illuminate\Http\Request;
 
-class permissaoFuncionalidade extends Controller
+class PermissaoFuncionalidadeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class permissaoFuncionalidade extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\permissaoFuncionalidade  $permissaoFuncionalidade
+     * @param  \App\PermissaoFuncionalidade  $permissaoFuncionalidade
      * @return \Illuminate\Http\Response
      */
-    public function show(permissaoFuncionalidade $permissaoFuncionalidade)
+    public function show(PermissaoFuncionalidade $permissaoFuncionalidade)
     {
         //
     }
@@ -52,10 +52,10 @@ class permissaoFuncionalidade extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\permissaoFuncionalidade  $permissaoFuncionalidade
+     * @param  \App\PermissaoFuncionalidade  $permissaoFuncionalidade
      * @return \Illuminate\Http\Response
      */
-    public function edit(permissaoFuncionalidade $permissaoFuncionalidade)
+    public function edit(PermissaoFuncionalidade $permissaoFuncionalidade)
     {
         //
     }
@@ -64,10 +64,10 @@ class permissaoFuncionalidade extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\permissaoFuncionalidade  $permissaoFuncionalidade
+     * @param  \App\PermissaoFuncionalidade  $permissaoFuncionalidade
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, permissaoFuncionalidade $permissaoFuncionalidade)
+    public function update(Request $request, PermissaoFuncionalidade $permissaoFuncionalidade)
     {
         //
     }
@@ -75,10 +75,10 @@ class permissaoFuncionalidade extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\permissaoFuncionalidade  $permissaoFuncionalidade
+     * @param  \App\PermissaoFuncionalidade  $PermissaoFuncionalidade
      * @return \Illuminate\Http\Response
      */
-    public function destroy(permissaoFuncionalidade $permissaoFuncionalidade)
+    public function destroy(PermissaoFuncionalidade $PermissaoFuncionalidade)
     {
         //
     }

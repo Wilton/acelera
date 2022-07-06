@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Acordo;
+use App\Models\Acordo;
 use Illuminate\Http\Request;
 
 class AcordoController extends Controller
@@ -82,4 +82,5 @@ class AcordoController extends Controller
     {
         //
     }
+
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Acao;
+use App\Models\Acao;
 use Illuminate\Http\Request;
 
 class AcaoController extends Controller

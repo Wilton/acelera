@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\AceiteAtividadeCronograma;
+use App\Models\AceiteAtividadeCronograma;
 use Illuminate\Http\Request;
 
 class AceiteAtividadeCronogramaController extends Controller

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\permissaoPerfil;
+use App\PermissaoPerfil;
 use Illuminate\Http\Request;
 
-class permissaoPerfilController extends Controller
+class PermissaoPerfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class permissaoPerfilController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\permissaoPerfil  $permissaoPerfil
+     * @param  \App\PermissaoPerfil  $permissaoPerfil
      * @return \Illuminate\Http\Response
      */
-    public function show(permissaoPerfil $permissaoPerfil)
+    public function show(PermissaoPerfil $permissaoPerfil)
     {
         //
     }
@@ -52,10 +52,10 @@ class permissaoPerfilController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\permissaoPerfil  $permissaoPerfil
+     * @param  \App\PermissaoPerfil  $permissaoPerfil
      * @return \Illuminate\Http\Response
      */
-    public function edit(permissaoPerfil $permissaoPerfil)
+    public function edit(PermissaoPerfil $permissaoPerfil)
     {
         //
     }
@@ -64,10 +64,10 @@ class permissaoPerfilController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\permissaoPerfil  $permissaoPerfil
+     * @param  \App\PermissaoPerfil  $permissaoPerfil
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, permissaoPerfil $permissaoPerfil)
+    public function update(Request $request, PermissaoPerfil $permissaoPerfil)
     {
         //
     }
@@ -75,10 +75,10 @@ class permissaoPerfilController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\permissaoPerfil  $permissaoPerfil
+     * @param  \App\PermissaoPerfil  $permissaoPerfil
      * @return \Illuminate\Http\Response
      */
-    public function destroy(permissaoPerfil $permissaoPerfil)
+    public function destroy(PermissaoPerfil $permissaoPerfil)
     {
         //
     }
